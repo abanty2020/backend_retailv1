@@ -1,4 +1,4 @@
 <?php
-//redireccionar la vista del LogicException 2
+//redireccionar la vista del LogicException 5
 header('Location: admin');
 ?>
