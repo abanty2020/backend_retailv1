@@ -1,0 +1,31 @@
+<IfModule mod_rewrite.c>
+  <IfModule mod_negotiation.c>
+      Options -MultiViews
+  </IfModule>
+
+  Options +FollowSymLinks
+  RewriteEngine On
+
+  # Redirect Trailing Slashes If Not A Folder...
+
+   RewriteCond %{REQUEST_FILENAME} !-d
+   RewriteCond %{REQUEST_FILENAME}.php -f
+   RewriteRule ^(.*)$ $1.php
+
+   RewriteCond %{REQUEST_FILENAME} !-d
+   RewriteCond %{REQUEST_FILENAME}.html -f
+   RewriteRule ^(.*)$ $1.html
+
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+  # Handle Front Controller...
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^homa$ index.php [L]
+
+
+  RewriteRule ^admin$ vistas/login.php [L]
+
+
+</IfModule>

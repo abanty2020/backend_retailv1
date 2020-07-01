@@ -1,0 +1,46 @@
+.btn-youtube{
+   background: #da301b;
+   color: white;
+ }
+
+ .btn-youtube:hover{
+   background: #da301b;
+   color: white;
+ }
+
+ .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+     padding: 2px;
+     line-height: 1.42857143;
+     vertical-align: middle;
+     border-top: 1px solid #ddd;
+ }
+
+ .colorpicker-2x .colorpicker-saturation {
+     width: 184px;
+     height: 184px;
+ }
+
+ .colorpicker-2x .colorpicker-hue,
+ .colorpicker-2x .colorpicker-alpha {
+     width: 30px;
+     height: 184px;
+ }
+
+ .colorpicker-2x .colorpicker-color,
+ .colorpicker-2x .colorpicker-color div {
+     height: 30px;
+ }
+
+ .colorpicker-inline.colorpicker-visible {
+   display: block;
+   margin: 0 auto;   
+   width: 228px;
+ }
+
+ .colorpicker-selectors i {
+   cursor: pointer;
+   height: 20px;
+   width: 20px;
+   float: left;
+   border-radius: 15px;
+   }

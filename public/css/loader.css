@@ -1,0 +1,85 @@
+.loader-page {
+position: fixed;
+z-index: 25000;
+/* background: rgb(255, 255, 255); */
+/* background: #222d32; */
+background: rgb(2,19,27);
+background: linear-gradient(90deg, rgba(255, 255, 255, 0.95) 6%, rgb(255, 255, 255) 49%, rgba(253, 254, 255, 0.94) 84%, rgba(255, 255, 255, 0.89) 100%);
+left: 0px;
+top: 0px;
+height: 100%;
+width: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+transition:all .3s ease;
+}
+.loader-page::before {
+   content: "";
+   position: absolute;
+   border: 3px solid rgb(209, 236, 243);
+   width: 60px;
+   height: 60px;
+   border-radius: 50%;
+   box-sizing: border-box;
+   border-left: 3px solid #d4d3d3;
+   border-top: 3px solid #b4e8d1;
+   animation: rotarload 1s linear infinite;
+   transform: rotate(0deg);
+}
+@keyframes rotarload {
+  0%   {transform: rotate(0deg)}
+  100% {transform: rotate(360deg)}
+}
+.loader-page::after {
+content: "";
+position: absolute;
+border: 3px solid rgb(90, 128, 138);
+width: 60px;
+height: 60px;
+border-radius: 50%;
+box-sizing: border-box;
+border-left: 3px solid #cfacac;
+border-top: 3px solid #608b78;
+animation: rotarload 1s ease-out infinite;
+transform: rotate(0deg);
+}
+
+
+.parpadea {
+  margin-top: -105px;
+  font-size:32px;
+  font-family:helvetica;
+  font-weight:bold;
+  color:#6397a5;
+  /* color: #dadada; */
+  /* text-shadow: -4px 1px 0px #31323a, -5px 3px 0 #0a0e27; */
+  text-transform:uppercase;
+
+  animation-name: parpadeo;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+
+  -webkit-animation-name:parpadeo;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+}
+
+@-moz-keyframes parpadeo{    0% { opacity: 1.0; }
+  50% { opacity: 0.0; }
+  100% { opacity: 1.0; }
+}
+
+@-webkit-keyframes parpadeo {
+  0% { opacity: 1.0; }
+  50% { opacity: 0.0; }
+   100% { opacity: 1.0; }
+}
+
+@keyframes parpadeo {
+  0% { opacity: 1.0; }
+   50% { opacity: 0.0; }
+  100% { opacity: 1.0; }
+}

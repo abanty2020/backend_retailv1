@@ -1,0 +1,44 @@
+.pre-loader-spinner {
+  height: 48px;
+    width: 48px;
+    color: #0000002e;
+    border: 5px solid;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spinner 1s linear infinite;
+    -webkit-animation: spinner 1s linear infinite;
+    position: relative;
+    top: 35px;
+
+}
+
+.textloader {
+    font-family: cuprum;
+    position: relative;
+    top: 36px;
+    left: 5px;
+    color: #000000a6;
+}
+
+div#loading {
+  background: #fff;
+  height: 168px;
+  max-height: 48vh;
+  width: 100%;
+  position: absolute;
+  /* top: 65px; */
+  left: 0;
+  z-index: 1;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,51 @@
+.mi-clase-pendiente {
+   background: #00a65a2e;
+   border-radius: 11px;
+   margin-top: 15px;
+}
+
+.mitotal {
+   font-size: 14px;
+   font-weight: 600;
+}
+
+.currency {
+   padding-left: 22px;
+}
+
+.currency-symbol {
+   position: absolute;
+   padding: 7px 4px;
+}
+
+div.dataTables_wrapper div.dataTables_filter {
+   text-align: left;
+}
+
+.nav-tabs-custom > .nav-tabs {
+   margin: 0;
+   border-bottom-color: #dedede;
+   border-top-right-radius: 3px;
+   border-top-left-radius: 3px;
+}
+
+.nav-tabs-custom > .nav-tabs > li.active > a {
+   border-top-color: transparent;
+   border-left-color: #dedede;
+   border-right-color: #dedede;
+}
+
+input[type=text]:focus, input[type=number]:focus {
+   /* background-color: #006aa62e; */
+   /* box-shadow: 0 0 5px black; */
+   /* border: 1px solid black; */
+}
+
+input::selection { background:black; color: white;}
+input::-moz-selection { background:black; color:white; }
+input::-webkit-selection { background:black; color:white; }
+
+.update:focus {
+   background: #3c8dbc29;
+   text-align: center;
+}
