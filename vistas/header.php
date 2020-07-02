@@ -1,6 +1,12 @@
 <?php
 if (strlen(session_id()) < 1)
   session_start();
+
+  require_once "../modelos/Rutas.php";
+  /*----------------------------------
+  |     #1 OBTENER RUTA SERVIDOR     |
+  ----------------------------------*/
+  $servidor = Ruta::ctrRutaServidor();
 ?>
 <!DOCTYPE html>
 <html>
@@ -256,3 +262,6 @@ if (strlen(session_id()) < 1)
     </section>
     <!-- /.sidebar -->
   </aside>
+
+  <input type="hidden" value="<?php echo $servidor; ?>" id="rutaServidor">
+  

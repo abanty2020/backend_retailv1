@@ -1,6 +1,6 @@
 //Tabla para modal articulos (Accesorios y Productos)
 var tablaArticulos;
-
+var Ruta = $('#rutaServidor').val();
 //Tablas para listar por estados
 var tabla_general;
 var tabla_pendiente;
@@ -46,6 +46,8 @@ if ($('#tbllistado_general').length == 1) {
 | Funcion Inicial |
 .----------------*/
 function init() {
+
+   console.log(Ruta)
 
 
    actualizarDatosFilas();
@@ -159,7 +161,7 @@ function agregarDetalle(id, descripcion, imagen, identificador) {
                   <input type="hidden" name="idaccesorio[]" value="` + idaccesorio + `"><b>Nº` + (detalles + 1) + `</b></td>
                   <td>
                      <figure class="">
-                        <img src="http://localhost/backend_retailv1/` + imagen + `" class="img-responsive">
+                        <img src="` + Ruta + imagen + `" class="img-responsive">
                      </figure>
                   </td>
                   <td>
@@ -168,7 +170,7 @@ function agregarDetalle(id, descripcion, imagen, identificador) {
                      </div>
                   </td>
                   <td><input type="number" min="0" max="999" class="form-control" name="cantidad[]" value="` + cantidad + `" onchange="modificarSubototales()" onkeyup="modificarSubototales()"></td>                  
-                  <td><input type="number" class="form-control currency" min="0.00" max="2500000.00" name="precio[]" value="` + precio + `" onchange="modificarSubototales()" onkeyup="modificarSubototales()" onblur="onBlur(this)" onfocus="onFocus(this)"></td>
+                  <td><input type="number" class="form-control currency" min="0.00" name="precio[]" value="` + precio + `" onchange="modificarSubototales()" onkeyup="modificarSubototales()" onblur="onBlur(this)" onfocus="onFocus(this)"></td>
                   <td><b><span name="subtotal">` + subtotal + `</span></b></td>
                   <td><a type="button" class="btn btn-danger" data-toggle="tooltip" title="" data-original-title="Remover artículo" onclick="remover_item(` + cont + `)"><i class="fa fa-trash"></i></a></td>
             </tr>`;
@@ -634,7 +636,7 @@ function mostrar(idpedido) {
                      <input type="hidden" name="idaccesorio[]" value="` + datos.idaccesorio + `"><b>Nº` + (index + 1) + `</b></td>
                      <td>
                         <figure class="">
-                           <img src="http://localhost/backend_retailv1/` + imagen + `" class="img-responsive">
+                           <img src="` + Ruta + imagen + `" class="img-responsive">
                         </figure>
                      </td>
                      <td>
@@ -643,7 +645,7 @@ function mostrar(idpedido) {
                         </div>
                      </td>
                      <td style="width: 100px;"><input type="number" min="0" class="form-control" name="cantidad[]" value="` + datos.cantidad + `" onchange="modificarSubototales()" onkeyup="modificarSubototales()" onfocus="this.select();" onmouseup="return true;"></td>                  
-                     <td><input type="number" class="form-control currency" min="0.00" max="2500000.00" name="precio[]" value="` + precio_local + `" onchange="modificarSubototales()" onkeyup="modificarSubototales()" onblur="onBlur(this)" onfocus="onFocus(this)"></td>
+                     <td><input type="number" class="form-control currency" min="0.00" name="precio[]" value="` + precio_local + `" onchange="modificarSubototales()" onkeyup="modificarSubototales()" onblur="onBlur(this)" onfocus="onFocus(this)"></td>
                      <td><b><span name="subtotal">` + subtotal + `</span></b></td>
                      <td><a type="button" class="btn btn-danger" data-toggle="tooltip" title="" data-original-title="Remover artículo" onclick="remover_item(` + cont + `)"><i class="fa fa-trash"></i></a></td>
                   </tr>`;

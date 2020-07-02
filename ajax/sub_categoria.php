@@ -10,7 +10,7 @@ $observador = isset($_POST['observador']) ? $_POST['observador']: null ;
 switch ($_GET["op"]){
 	case 'guardaryeditar':
 		if (empty($idsubcategoria)){
-			$rspta=$subcategoria->insertar($idcategoria,$nombre,$descripcion,$_POST["observador"]);
+			$rspta=$subcategoria->insertar($idcategoria,$nombre,$descripcion,$observador);
 			echo $rspta ? "Subcategoria registrada" : "Subcategoria no se pudo registrar";
 		}
 		else {

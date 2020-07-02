@@ -239,3 +239,5 @@ $tableB->endTable(0);
 
 
 $pdf->Output('Documento de Cotizacion.pdf','I');
+
+?>

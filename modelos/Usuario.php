@@ -102,7 +102,7 @@ Class Usuario
 	//Implementar un metodo para listar los registros 
 	public function listar() 
 	{ 
-		$sql="SELECT * FROM usuario"; 
+		$sql="SELECT * FROM usuario WHERE idusuario NOT IN(3)"; 
 		return ejecutarConsulta($sql); 
 	} 
 	//Implementar un método para listar los permisos marcados 
