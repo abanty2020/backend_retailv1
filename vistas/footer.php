@@ -45,6 +45,8 @@ $('ul.treeview-menu a').filter(function() {
 <script type="text/javascript" src="../public/js/notify.min.js"></script>
 <!-- Confirm js -->
 <script type="text/javascript" src="../public/js/jquery-confirm.min.js"></script>
+<!-- Mask js -->
+<script type="text/javascript" src="../public/js/jquery.maskMoney.js"></script>
 <!-- Amaran js -->
 <script src="../public/js/jquery.amaran.min.js"></script>
 <script src="../public/js/swiper.min.js"></script>

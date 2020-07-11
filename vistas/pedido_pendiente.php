@@ -9,6 +9,24 @@ if (!isset($_SESSION["nombre"])) {
    if ($_SESSION['productos'] == 1) {
 ?>
 
+      <style>
+
+      .glyphicon-refresh-animate {
+         -animation: spin .7s infinite linear;
+         -webkit-animation: spin2 .7s infinite linear;
+      }
+
+      @-webkit-keyframes spin2 {
+         from { -webkit-transform: rotate(0deg);}
+         to { -webkit-transform: rotate(360deg);}
+      }
+
+      @keyframes spin {
+         from { transform: scale(1) rotate(0deg);}
+         to { transform: scale(1) rotate(360deg);}
+      }
+      </style>
+
       <link rel="stylesheet" href="../public/css/moduloscss/detallepedido.css">
  
       <!-- Content Wrapper. Contains page content -->
@@ -29,6 +47,9 @@ if (!isset($_SESSION["nombre"])) {
                <div class="col-md-12">
                   <div class="box box-primary">
                      <div class="box-header with-border">
+
+                     <div style="display:none; color: #000000; position: absolute; top: 31%; left: 66%;" class="" id="alertMsg"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>Enviando Email...</div>  
+
                         <div class="col-md-offset-9 col-md-3 ">
                            <label for="buscar" id="labelsearch" class="col-sm-3 control-label">Buscar: </label>
                            <div class="col-sm-9 searching">
@@ -154,7 +175,7 @@ if (!isset($_SESSION["nombre"])) {
                                     <th scope="col">Descripcion</th>
                                     <th scope="col">Cantidad</th>
                                     <th scope="col">Precio</th>
-                                    <th scope="col">SubTotal</th>
+                                    <th style="width: 150px;" scope="col">SubTotal</th>
                                     <th scope="col">Opcion</th>
                                  </tr>
                               </thead>

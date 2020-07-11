@@ -154,7 +154,7 @@ if (!isset($_SESSION["nombre"])) {
                                     <th scope="col">Descripcion</th>
                                     <th scope="col">Cantidad</th>
                                     <th scope="col">Precio</th>
-                                    <th scope="col">SubTotal</th>
+                                    <th style="width: 150px;" scope="col">SubTotal</th>
                                     <th scope="col">Opcion</th>
                                  </tr>
                               </thead>

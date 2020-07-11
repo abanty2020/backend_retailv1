@@ -1,4 +1,14 @@
 <?php
+ob_start ();
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PhpMailer/Exception.php';
+require 'PhpMailer/PHPMailer.php';
+require 'PhpMailer/SMTP.php';
+
+
 include '../fpdf182/fpdf.php';
 include 'exfpdf.php';
 include 'easyTable.php';
@@ -9,11 +19,13 @@ $rsptap = $pedido->mostrar($_GET["id"]);
 
 $rspta_detalle =  $pedido->mostrar_detalle_pedido($_GET["id"]);
 
+$sending = isset($_GET["sending"])?$_GET["sending"]:false;
 
 $data = array();
 $descripcion;
 $imagen;
-$ruta = 'http://localhost/backend_retailv1/';
+$ruta = '../';
+$ruta1 = 'http://localhost/backend_retailv1/';
 
 while ($reg = $rspta_detalle->fetch_object()) {
    
@@ -40,8 +52,7 @@ while ($reg = $rspta_detalle->fetch_object()) {
 
 // var_dump($data);
 
-$fecha = date("d/m/Y", strtotime($rsptap['fecha_orden']));  
-   
+$fecha = date("d/m/Y", strtotime($rsptap['fecha_orden']));     
 
 $pdf = new exFPDF('P','mm','A4');
 
@@ -120,7 +131,8 @@ foreach ($data as $key => $value) {
    $tableB->easyCell(utf8_decode($value['iddp']), 'valign:M; align:C;');
    $tableB->easyCell(utf8_decode($value['descripcion']), 'valign:M; align:C;font-style:B');
    $tableB->easyCell(utf8_decode($value['cantidad']).' unid', 'valign:M; align:C;');
-   $tableB->easyCell("", 'img:../'.$value['articulo'].',w50');
+   $tableB->easyCell("", 'img:'.$ruta.$value['articulo'].',w50');
+   // $tableB->easyCell($ruta.$value['articulo'], 'valign:M; align:C;');   
    $tableB->easyCell('$'.$value['precio'], 'valign:M; align:C;');
    $tableB->easyCell('$'.$value['subtotal'], 'valign:M; align:C;');
    $tableB->printRow();
@@ -237,7 +249,46 @@ $tableB->printRow(); //FILAS 13
 /** ********************************************************************************************************* */
 $tableB->endTable(0);
 
+if ($sending == false) {   
 
-$pdf->Output('Documento de Cotizacion.pdf','I');
+   $pdf->Output('Documento de Cotizacion.pdf','I');  
+
+}else{
+
+   $p = $pdf->Output('','S');
+
+   // PHP MAILER SMTP SEND EMAIL ATACHMENTD 
+   $mail = new PHPMailer(true);
+
+   try {   
+      $mail->SMTPDebug = 0;
+      $mail->Debugoutput = 'html';                 
+      $mail->isSMTP();    
+      // $mail->Mailer     = "smtp";                                        
+      $mail->Host       = 'smtp.gmail.com';                   
+      $mail->SMTPAuth   = true;                                   
+      $mail->Username   = "jesus.alberto.abanto.cruz@gmail.com";      
+      $mail->Password   = 'Nevermind2020';                               
+      $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         
+      $mail->Port       = 587;
+
+      $mail->setFrom('jesus.alberto.abanto.cruz@gmail.com', 'Seguridad Retail');
+      // $mail->Timeout=60;
+      
+      $mail->isHTML(true); 
+      $mail->addAddress($rsptap['email']);                                  
+      $mail->Subject = utf8_decode('PDF DE COTIZACIÓN');
+      $mail->Body    = 'TU PEDIDO EN PDF</b>';
+      $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+   
+      $mail->AddStringAttachment($p,'Proforma_cotizacion.pdf','base64');
+      $mail->send();
+      echo 'PDF enviado';
+   } catch (Exception $e) {
+      echo "Error al enviar mensaje: {$mail->ErrorInfo}";
+   }
+}
+ob_end_flush(); 
+
 
 ?>

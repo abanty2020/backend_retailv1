@@ -1,6 +1,10 @@
 <?php
 session_start();
 require_once "../modelos/Pedido.php";
+require_once "../modelos/Rutas.php";
+
+$ruta = new Ruta();
+$miRutaLocal = $ruta->ctrRutaServidor();
 
 //INSTANCIAR CLASE ACCESORIO
 $pedido = new Pedido();
@@ -18,7 +22,9 @@ $estado = isset($_POST["state"]) ? limpiarCadena($_POST["state"]) : "";
 $idproducto = isset($_POST["idproducto"]) ? $_POST["idproducto"] : '';
 $idaccesorio = isset($_POST["idaccesorio"]) ? $_POST["idaccesorio"] : '';
 
-
+$newStr = isset($_POST["precio"]) ? str_replace('S/', '', $_POST['precio']): '';
+$number = str_replace(',', '', $newStr);
+// $num = intval($newStr);
 switch ($estado) {
 
 	case '1':
@@ -53,13 +59,13 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
 			// echo $rspta ? "Categoria registrada" : "Categoria no se pudo registrar";
 		} else {	
 
-			$rspta = $pedido->actualizar_pedido($idpedido, $empresa, $tipo_negocio, $ruc, $representante, $cantidad_productos, $telefono, $email, $cantidad_entradas, $total, $estado, $idaccesorio, $idproducto, $_POST['cantidad'], $_POST['precio']);
+			$rspta = $pedido->actualizar_pedido($idpedido, $empresa, $tipo_negocio, $ruc, $representante, $cantidad_productos, $telefono, $email, $cantidad_entradas, $total, $estado, $idaccesorio, $idproducto, $_POST['cantidad'],$number);
 			echo $rspta ? "Pedido actualizado" : "Pedido no se pudo actualizar";
 		}
 		break;
 
 
-		/*--------------------------------------*
+	/*--------------------------------------*
 	| CASE PARA EDITAR DATOS DEL DATATABLE |
 	.--------------------------------------*/
 	case 'editardatos':
@@ -68,7 +74,7 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
 		break;
 
 
-		/*-----------------------
+	/*-----------------------
 	| CASE ESTADO RECHAZADO |
 	-----------------------*/
 	case 'estado_rechazar':
@@ -77,7 +83,7 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
 		break;
 
 
-		/*--------------
+	/*--------------
 	| CASE MOSTRAR |
 	--------------*/
 	case 'mostrar':
@@ -87,7 +93,7 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
 		break;
 
 
-		/*-----------------------------
+	/*-----------------------------
  	| CASE LISTAR PEDIDOS GENERAL |
  	-----------------------------*/
 	case 'listar_general':
@@ -180,7 +186,9 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
 
 		while ($reg = $rspta->fetch_object()) {
 
-			$btn_pdf = '<a class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Visualizar PDF"><i class="fa fa-file-pdf-o"></i></a>';
+			$url='../reportes/reportec.php?id=';
+	
+			$btn_pdf = '<a class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Visualizar PDF" target="_blank" href="'.$url.$reg->idpedido.'"><i class="fa fa-file-pdf-o"></i></a>';
 
 			$data[] = array(
 				"0" => '<span class="spanproduct">P-' . $reg->idpedido . '</span>',
@@ -215,8 +223,7 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
 		while ($reg = $rspta->fetch_object()) {
 
 			$url='../reportes/reportec.php?id=';
-			// $url2='../reportes/Pics/example1.php';
-//
+	
 			$btn_pdf = '<a class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Visualizar PDF" target="_blank" href="'.$url.$reg->idpedido.'"><i class="fa fa-file-pdf-o"></i></a>';
 
 			$data[] = array(
@@ -288,14 +295,18 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
 		break;
 
 
-		/*------------------------
+	/*------------------------
  	| CASE LISTAR ACCESORIOS |
  	------------------------*/
 	case 'listar_accesorios':
 		require_once "../modelos/Accesorio.php";
+	
 		$accesorio = new Accesorio();
 
+		
+
 		$rspta = $accesorio->listar();
+	
 		/** LISTAR ACCESORIOS */
 		//Vamos a declarar un Array
 		$data = array();
@@ -306,7 +317,7 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
 			$data[] = array(
 				"0" => '<button class="btn btn-dark" onclick="agregarDetalle(' . $reg->idaccesorio . ',\'' . $reg->descripcion . '\',\'' . $reg->imagen . '\',\'' . $identificador . '\')"><span class="fa fa-plus"></span></button>',
 				"1" => $reg->nombre,
-				"2" => '<td><img src="http://localhost/backend_retailv1/' . $reg->imagen . '" class="img-thumbnail" width="150"></td>'
+				"2" => '<td><img src="'. $miRutaLocal . $reg->imagen . '" class="img-thumbnail" width="150"></td>'
 			);
 		}
 
@@ -325,7 +336,7 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
  	| CASE LISTAR PRODUCTOS |
  	-----------------------*/
 	case 'listar_productos':
-		require_once "../modelos/Producto.php";
+		require_once "../modelos/Producto.php";	
 		$producto = new Producto();
 		$rspta = $producto->listar_solo();
 		//Vamos a declarar un Array
@@ -335,7 +346,7 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
 			$data[] = array(
 				"0" => '<button class="btn btn-dark" onclick="agregarDetalle(' . $reg->idproducto . ',\'' . $reg->descripcion . '\',\'' . $reg->imagen . '\',\'' . $identificador . '\')"><span class="fa fa-plus"></span></button>',
 				"1" => $reg->nombre,
-				"2" => '<td><img src="http://localhost/backend_retailv1/' . $reg->imagen . '" class="img-thumbnail" width="150"></td>'
+				"2" => '<td><img src="'. $miRutaLocal . $reg->imagen . '" class="img-thumbnail" width="150"></td>'
 			);
 		}
 

@@ -86,10 +86,7 @@ if ($_SESSION['productos']==1)
                            <center class="title-profile"><span>  <label>MI ACCESORIO</label></span></center>
                            <input type="file" onchange="readURL(this);" class="form-control" name="imagen" id="imagen" style="display:none;">
                            <input type="hidden" name="imagenactual" id="imagenactual">
-                           <img id="imagenmuestra" class="profile-user-img img-responsive" src="" onclick="$('#imagen').trigger('click'); return true;" style="width: 180px;border-radius: 10px;border-color: #3c8dbc;cursor: pointer;height: 180px;" alt="User profile picture">
-                           <button class="btn btn-dark dtext" style="margin-top: 10px;" type="button" data-toggle="modal" data-target="#modaltblproductos"><i class="fa fa-list"></i>
-                              Relacionar Producto
-                            </button>                      
+                           <img id="imagenmuestra" class="profile-user-img img-responsive" src="" onclick="$('#imagen').trigger('click'); return true;" style="width: 180px;border-radius: 10px;border-color: #3c8dbc;cursor: pointer;height: 180px;" alt="User profile picture">                                            
                           </div>                     
                      </div>
                         <div class="form-group col-lg-8 col-md-12 col-sm-12 col-xs-12">
@@ -130,6 +127,13 @@ if ($_SESSION['productos']==1)
                            <label>Cantidad minima:</label>
                          <input type="number" class="form-control" name="cantidad_min" id="cantidad_min" placeholder="Cantidad minima">
                         </div>   
+
+                        <div class="form-group  col-lg-offset-9 col-lg-12">
+                           <button class="btn btn-success dtext" style="margin-top: 10px;" type="button" data-toggle="modal" data-target="#modaltblproductos"><i class="fa fa-list"></i>
+                              Relacionar Producto
+                            </button>   
+                        </div>         
+
                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                        <label>Detalle del accesorio(*):</label>
                        <textarea style="resize: none;" rows="7" cols="50" id="descripcion" name="descripcion" class="form-control col-md-7 col-xs-12"></textarea>

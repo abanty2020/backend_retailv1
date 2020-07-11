@@ -111,6 +111,7 @@ switch ($_GET["op"]){
 	 			"aaData"=>$data);
 	 		echo json_encode($results);
 		break;
+
 		case 'permisos':
 			//Obtenemos todos los permisos de la tabla permisos
 			require_once "../modelos/Permiso.php";
@@ -133,6 +134,7 @@ switch ($_GET["op"]){
 								echo '<li> <input class="permisoscheck" type="checkbox" '.$sw.'  name="permiso[]" value="'.$reg->idpermiso.'"> '.$reg->nombre.'</li>';
 							}
 		break;
+		
 				case 'verificar':
 					$logina=$_POST['logina'];
 				   $clavea=$_POST['clavea'];
@@ -180,15 +182,16 @@ switch ($_GET["op"]){
 								array_push($valores, $per->idpermiso);
 							}
 						//Determinamos los accesos del usuario
-						in_array(1,$valores)?$_SESSION['dashboard']=1:$_SESSION['dashboard']=0;
-						in_array(2,$valores)?$_SESSION['pedidos']=1:$_SESSION['pedidos']=0;
-						in_array(3,$valores)?$_SESSION['productos']=1:$_SESSION['productos']=0;
-						in_array(4,$valores)?$_SESSION['accesos']=1:$_SESSION['accesos']=0;
-						in_array(5,$valores)?$_SESSION['plantilla']=1:$_SESSION['plantilla']=0;
-						in_array(6,$valores)?$_SESSION['reportes']=1:$_SESSION['reportes']=0;
+						// in_array(1,$valores)?$_SESSION['dashboard']=1:$_SESSION['dashboard']=0;
+						in_array(1,$valores)?$_SESSION['pedidos']=1:$_SESSION['pedidos']=0;
+						in_array(2,$valores)?$_SESSION['productos']=1:$_SESSION['productos']=0;
+						in_array(3,$valores)?$_SESSION['accesos']=1:$_SESSION['accesos']=0;
+						in_array(4,$valores)?$_SESSION['plantilla']=1:$_SESSION['plantilla']=0;
+						// in_array(6,$valores)?$_SESSION['reportes']=1:$_SESSION['reportes']=0;
 			  }
 					echo json_encode($fetch);
 				break;
+
 				case 'salir':
 					//Limpiamos las variables de sesión
 			        session_unset();
@@ -197,5 +200,5 @@ switch ($_GET["op"]){
 			        //Redireccionamos al login
 			        header("Location: ../index.php");
 				break;
-			}
-			?>
+	}
+?>

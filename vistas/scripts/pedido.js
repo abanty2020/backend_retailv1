@@ -47,7 +47,8 @@ if ($('#tbllistado_general').length == 1) {
 .----------------*/
 function init() {
 
-   console.log(Ruta)
+
+   loader();
 
 
    actualizarDatosFilas();
@@ -61,13 +62,8 @@ function init() {
 
    });
 
+
    listar_todos_los_estados();
-
-
-   // listar();
-
-
-   // listar_atendidos();
 
 
    movermodal();
@@ -76,6 +72,10 @@ function init() {
    //Capturar evento submit para guardar registros o editarlos
    $("#formulario").on("submit", function (e) {
       e.preventDefault();
+
+      var sending = true;
+      var idpedidoCotizacion = $('#idpedido').val();
+
       $.confirm({
          icon: 'fa fa-question-circle',
          title: 'Confirmar Pedido!',
@@ -89,8 +89,38 @@ function init() {
                text: 'Confirmar',
                btnClass: 'btn-blue',
                keys: ['enter', 'shift'],
-               action: function (e) {
-                  guardaryeditar(e);
+               action: function () {
+                  guardaryeditar();
+
+                  setTimeout(function () {
+
+                     if (text_confirm == 'Atendido') {
+
+                        $.ajax({
+                           url: '../reportes/reportec.php?id=' + idpedidoCotizacion + '&sending=' + sending,
+                           type: "POST",
+
+                           beforeSend: function (jqXHR, options) {
+                              $('#alertMsg').show();
+                           },
+                           success: function (datos) {
+                              $('#alertMsg').hide();
+                              console.log(datos);
+                              $.amaran({
+                                 'theme': 'awesome ok',
+                                 'content': {
+                                    title: datos,
+                                    message: ' ',
+                                    info: 'satisfactoriamente',
+                                    icon: 'fa fa-check'
+                                 },
+                                 'position': 'top right',
+                                 'inEffect': 'slideRight'
+                              });
+                           }
+                        });
+                     }
+                  }, 3000);
                }
             },
             cancelar: {
@@ -154,7 +184,7 @@ function agregarDetalle(id, descripcion, imagen, identificador) {
    var idproducto = identificador == 'producto' ? id : null;
    var cantidad = 0;
    var subtotal = 0;
-   var precio = '0.00';
+   var precio = 'S/ 0.00';
    var trx = `<tr class="filas" id="fila` + cont + `">
                   <td><input type="hidden" name="iddetalle_pedido[]" value="">
                   <input type="hidden" name="idproducto[]" value="` + idproducto + `">
@@ -170,7 +200,7 @@ function agregarDetalle(id, descripcion, imagen, identificador) {
                      </div>
                   </td>
                   <td><input type="number" min="0" max="999" class="form-control" name="cantidad[]" value="` + cantidad + `" onchange="modificarSubototales()" onkeyup="modificarSubototales()"></td>                  
-                  <td><input type="number" class="form-control currency" min="0.00" name="precio[]" value="` + precio + `" onchange="modificarSubototales()" onkeyup="modificarSubototales()" onblur="onBlur(this)" onfocus="onFocus(this)"></td>
+                  <td><input type="text" class="form-control moneda" name="precio[]" value="` + precio + `" onchange="modificarSubototales()" onkeyup="modificarSubototales()"></td>
                   <td><b><span name="subtotal">` + subtotal + `</span></b></td>
                   <td><a type="button" class="btn btn-danger" data-toggle="tooltip" title="" data-original-title="Remover artículo" onclick="remover_item(` + cont + `)"><i class="fa fa-trash"></i></a></td>
             </tr>`;
@@ -180,7 +210,13 @@ function agregarDetalle(id, descripcion, imagen, identificador) {
    modificarSubototales();
 
    $(document).ready(function () {
-      $('input.currency').currencyInput();
+      $(".moneda").maskMoney({
+         prefix: 'S/',
+         thousands: ',',
+         decimal: '.',
+         allowZero: true
+      });
+
       $('[data-toggle="tooltip"]').tooltip();
    });
 
@@ -190,10 +226,10 @@ function agregarDetalle(id, descripcion, imagen, identificador) {
 /*------------------------------*
 | Funcion para guardar o editar |
 .------------------------------*/
-function guardaryeditar() {
+function guardaryeditar(noalerta = true) {
 
    var formData = new FormData($("#formulario")[0]);
-   $('#modal-pedido').modal('hide');
+
    $.ajax({
       url: "../ajax/pedido.php?op=guardaryeditar",
       type: "POST",
@@ -202,20 +238,27 @@ function guardaryeditar() {
       processData: false,
 
       success: function (datos) {
-         selectTable.ajax.reload(null, false);
 
-         $.amaran({
-            'theme': 'awesome ok',
-            'content': {
-               title: datos,
-               message: ' ',
-               info: 'satisfactoriamente',
-               icon: 'fa fa-check'
-            },
-            'position': 'top right',
-            'inEffect': 'slideRight'
-         });
+         if (noalerta !== true) {
 
+            selectTable.ajax.reload(null, false);
+
+         } else {
+
+            $('#modal-pedido').modal('hide');
+            $.amaran({
+               'theme': 'awesome ok',
+               'content': {
+                  title: datos,
+                  message: ' ',
+                  info: 'satisfactoriamente',
+                  icon: 'fa fa-check'
+               },
+               'position': 'top right',
+               'inEffect': 'slideRight'
+            });
+
+         }
       }
    });
 
@@ -239,10 +282,8 @@ function ActualizarCotizacion() {
             text: 'Confirmar',
             btnClass: 'btn-dark',
             keys: ['enter', 'shift'],
-            action: function (e) {
-               guardaryeditar(e);
-
-
+            action: function () {
+               guardaryeditar();
             }
          },
          cancelar: {
@@ -282,6 +323,7 @@ function rechazarCotizacion() {
                   idpedido: idpedidoCotizacion
                }, function (e) {
                   $('#modal-pedido').modal('hide');
+
                   selectTable.ajax.reload(null, false);
 
                   $.amaran({
@@ -536,7 +578,7 @@ function mostrar(idpedido) {
       idpedido: idpedido
    }, function (r) {
       data = JSON.parse(r);
-      console.log(data);
+      // console.log(data);
 
       $("#idpedido").val(data.idpedido);
       $("#nombre_empresa").val(data.nombre_empresa);
@@ -628,7 +670,10 @@ function mostrar(idpedido) {
 
          console.log(datos);
          var subtotal = 0;
-         var precio_local = datos.precio == 0 ? '0.00' : datos.precio;
+         var precio_local = datos.precio == 0 ? 'S/ 0.00' : number_format(datos.precio, 2, '.', ',');
+
+         // console.log(datos.precio);
+
 
          var tr = `<tr class="filas" id="fila` + cont + `">
                      <td><input type="hidden" name="iddetalle_pedido[]" value="` + datos.iddetalle_pedido + `">
@@ -645,7 +690,7 @@ function mostrar(idpedido) {
                         </div>
                      </td>
                      <td style="width: 100px;"><input type="number" min="0" class="form-control" name="cantidad[]" value="` + datos.cantidad + `" onchange="modificarSubototales()" onkeyup="modificarSubototales()" onfocus="this.select();" onmouseup="return true;"></td>                  
-                     <td><input type="number" class="form-control currency" min="0.00" name="precio[]" value="` + precio_local + `" onchange="modificarSubototales()" onkeyup="modificarSubototales()" onblur="onBlur(this)" onfocus="onFocus(this)"></td>
+                     <td><input type="text" class="form-control moneda" name="precio[]" value="` + precio_local + `" onchange="modificarSubototales()" onkeyup="modificarSubototales()"></td>
                      <td><b><span name="subtotal">` + subtotal + `</span></b></td>
                      <td><a type="button" class="btn btn-danger" data-toggle="tooltip" title="" data-original-title="Remover artículo" onclick="remover_item(` + cont + `)"><i class="fa fa-trash"></i></a></td>
                   </tr>`;
@@ -655,10 +700,16 @@ function mostrar(idpedido) {
          $("#bodyaqui").append(tr);
          modificarSubototales();
 
-         $(document).ready(function () {
-            $('input.currency').currencyInput();
-            $('[data-toggle="tooltip"]').tooltip();
 
+         $(document).ready(function () {
+            $(".moneda").maskMoney({
+               prefix: 'S/',
+               thousands: ',',
+               decimal: '.',
+               allowZero: true
+
+            });
+            $('[data-toggle="tooltip"]').tooltip();
          });
 
       });
@@ -691,14 +742,16 @@ function modificarSubototales() {
    var prec = document.getElementsByName("precio[]");
    var sub = document.getElementsByName("subtotal");
 
+
    for (var i = 0; i < cant.length; i++) {
       var inpC = cant[i];
       var inpP = prec[i];
       var inpS = sub[i];
 
+      var num = $('.moneda').maskMoney('unmasked')[i];
 
       inpP.style.background = "#d8e6ff";
-      if (inpP.value == '0.00') {
+      if (num == '0.00') {
          inpP.style.background = "#ffd8d8";
          inpP.style.color = "red";
       } else {
@@ -706,7 +759,7 @@ function modificarSubototales() {
       }
 
 
-      inpS.value = inpC.value * inpP.value;
+      inpS.value = inpC.value * num;
       var valuesubt = parseFloat(Math.round(inpS.value * 100) / 100).toFixed(2);
       document.getElementsByName("subtotal")[i].innerHTML = "S/. " + number_format(valuesubt, 2, '.', ',');
    }
@@ -803,5 +856,76 @@ $.fn.currencyInput = function () {
    });
 };
 
+/*---------------------------------------*
+| Funcion para Ver Reporte pedido en PDF |
+.---------------------------------------*/
+function enviarPdf() {
+
+   var sending = true;
+   var idpedidoCotizacion = $('#idpedido').val();
+   $('#state').val('soloEditar');
+   $.confirm({
+      icon: 'fa fa-question-circle',
+      title: 'Advertencia!',
+      content: 'Se enviará un PDF de la cotización vía correo electrónico <b> ¿Estás de acuerdo? </b>',
+      type: 'dark',
+      typeAnimated: true,
+      buttons: {
+         confirmar: {
+            icon: 'fa fa-warning',
+            text: 'Confirmar',
+            btnClass: 'btn-dark',
+            keys: ['enter', 'shift'],
+            action: function () {
+               var noalerta = false;
+               guardaryeditar(noalerta);
+
+               setTimeout(function () {
+
+                  $.ajax({
+                     url: '../reportes/reportec.php?id=' + idpedidoCotizacion + '&sending=' + sending,
+                     type: "POST",
+
+                     beforeSend: function (jqXHR, options) {
+                        $('#alertMsg').show();
+
+                     },
+                     success: function (datos) {
+
+                        $('#alertMsg').hide();
+                        console.log(datos);
+                        $.amaran({
+                           'theme': 'awesome ok',
+                           'content': {
+                              title: datos,
+                              message: ' ',
+                              info: 'satisfactoriamente',
+                              icon: 'fa fa-check'
+                           },
+                           'position': 'top right',
+                           'inEffect': 'slideRight'
+                        });
+                     }
+                  });
+
+
+               }, 3000);
+
+
+            }
+         },
+         cancelar: {
+            text: 'Cancelar',
+            btnClass: 'btn-default',
+            keys: ['enter', 'a'],
+            isHidden: false, //
+            isDisabled: false, //
+            // action: function(){
+            //       $.alert('Cancelado!');
+            // }
+         },
+      }
+   });
+}
 
 init();

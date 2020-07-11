@@ -9,6 +9,24 @@ if (!isset($_SESSION["nombre"])) {
    if ($_SESSION['productos'] == 1) {
 ?>
 
+<style>
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+</style>
+
       <link rel="stylesheet" href="../public/css/moduloscss/detallepedido.css">
  
       <!-- Content Wrapper. Contains page content -->
@@ -70,7 +88,7 @@ if (!isset($_SESSION["nombre"])) {
                      <span aria-hidden="true">&times;</span></button>
 
                   <!-- <button type="button" name="button"><a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a></button> -->
-                  <h4 class="modal-title">Pedidos pendientes</h4>
+                  <h4 class="modal-title"><i class="fa fa-book"></i> Pedidos Atendidos</h4>
                </div>
                <div class="modal-body">
                   <form name="formulario" id="formulario" method="POST">
@@ -134,13 +152,25 @@ if (!isset($_SESSION["nombre"])) {
                      </div>
 
                      <div class="well">
-                        <div class="row">
-                           <div class="col-lg-9">
-                              <b>DETTALLE DE PEDIDO</b>
+                     <div class="row">
+                           <div class="col-lg-4">
+                              <b>DETALLE DE PEDIDO</b>                              
+                           </div>   
+                           
+                           <div class="col-lg-3 text-right">
+                              <div style="display:none;" class="" id="alertMsg">
+                                 <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+                                 Enviando Email...
+                              </div>                            
+                           </div>                        
+
+                           <div class="col-lg-2">
+                              <button type="button" class="btn btn-warning" onclick="enviarPdf()" data-toggle="tooltip" data-placement="top" title="Enviar PDF por Email"><i class="fa fa-file-pdf-o"></i> Enviar Email</button>
                            </div>
                            <div class="col-lg-3">
                               <button type="button" class="btn btn-success" onclick="abrirModalArticulos()"><span class="fa fa-plus"></span> Agregar artículo</button>
                            </div>
+                           
                         </div>
                         <br>
 
@@ -154,7 +184,7 @@ if (!isset($_SESSION["nombre"])) {
                                     <th scope="col">Descripcion</th>
                                     <th scope="col">Cantidad</th>
                                     <th scope="col">Precio</th>
-                                    <th scope="col">SubTotal</th>
+                                    <th style="width: 150px;" scope="col">SubTotal</th>
                                     <th scope="col">Opcion</th>
                                  </tr>
                               </thead>
@@ -179,7 +209,9 @@ if (!isset($_SESSION["nombre"])) {
                   </form>
                </div>
                <div class="modal-footer">
-                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>     
+                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>   
+                
+                    
                   <button id="btn_modal_rechazar" type="button" class="btn btn-danger" form="formulario" onclick="rechazarCotizacion()">Rechazar Cotización</button>
                   <button id="btn_modal_submit" type="submit" class="btn btn-primary" form="formulario">Enviar Cotización</button>
                   <button id="btn_modal_edit" onclick="ActualizarCotizacion()" type="button" class="btn btn-dark" form="formulario">Actualizar</button>

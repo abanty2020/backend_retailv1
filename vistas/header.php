@@ -71,7 +71,7 @@ if (strlen(session_id()) < 1)
 	<link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500&display=swap" rel="stylesheet">
 </head>
-<!-- <div class="loader-page"><h1 class="parpadea">Seguridad RETAIL</h1></div> -->
+<div class="loader-page"><h1 class="parpadea">Seguridad RETAIL</h1></div>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
   <!-- Main Header -->
@@ -160,11 +160,7 @@ if (strlen(session_id()) < 1)
         <li class="header">MENU PRINCIPAL</li>
         <!-- Optionally, you can add icons to the links -->
         <!-- DASHBORAD -->
-        <?php
-         if ($_SESSION['dashboard']==1) {
-            echo '<li class="active"><a href="dashboard"><i class="fa fa-fw fa fa-dashboard"></i><span>Dashboard</span></a></li>';
-         }
-         ?>
+    
          <!-- PEDIDOS -->
          <?php
          if ($_SESSION['pedidos']==1) {
@@ -239,24 +235,7 @@ if (strlen(session_id()) < 1)
             </li>';
           }
           ?>
-         <!-- REPORTES -->
-         <?php
-         if ($_SESSION['reportes']==1) {
-          echo '<li class="treeview">
-             <a href="#">
-               <i class="fa fa-fw fa-newspaper-o"></i><span>Reportes</span>
-               <span class="pull-right-container">
-                 <i class="fa fa-angle-left pull-right"></i>
-               </span>
-             </a>
-             <ul class="treeview-menu">
-               <li><a href="#"><i class="fa fa-circle-o"></i> --- </a></li>
-               <li><a href="#"><i class="fa fa-circle-o"></i> --- </a></li>
-               <li><a href="#"><i class="fa fa-circle-o"></i> --- </a></li>
-             </ul>
-           </li>';
-         }
-         ?>
+        
       </ul>
       <!-- /.sidebar-menu -->
     </section>

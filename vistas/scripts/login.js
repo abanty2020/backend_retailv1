@@ -1,4 +1,4 @@
-$("#frmAcceso").on('submit', function(e) {
+$("#frmAcceso").on('submit', function (e) {
    e.preventDefault();
 
    logina = $("#logina").val();
@@ -10,12 +10,12 @@ $("#frmAcceso").on('submit', function(e) {
          "clavea": clavea,
          "remember_me": remember_me
       },
-      function(data) {
+      function (data) {
 
          console.log(data);
 
          if (data != "null") {
-            $(location).attr("href", "vistas/dashboard");
+            $(location).attr("href", "vistas/pedido_pendiente");
          } else {
             // $.alert('Usuario y/o Password incorrectos');
             $.alert({
