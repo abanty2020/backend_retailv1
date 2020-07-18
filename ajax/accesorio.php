@@ -12,6 +12,7 @@ $rango = isset($_POST["rango"])? limpiarCadena($_POST["rango"]):"";
 $cantidad_min_option = isset($_POST["cantidad_min_option"])? limpiarCadena($_POST["cantidad_min_option"]):"";
 $cantidad_min = isset($_POST["cantidad_min"])? limpiarCadena($_POST["cantidad_min"]):"";
 $descripcion = isset($_POST["descripcion"])? limpiarCadenaEditor($_POST["descripcion"]):"";
+$precio_base = isset($_POST["precio_base"])? limpiarCadenaEditor($_POST["precio_base"]):"";
 $imagen = isset($_POST["imagen"])? limpiarCadena($_POST["imagen"]):"";
 $color = isset($_POST["color"])? limpiarCadena($_POST["color"]):"";
 $style = isset($_POST["style"])? limpiarCadena($_POST["style"]):"";
@@ -51,13 +52,13 @@ switch ($_GET["op"]){ //Creacion de variable op con metodo get para crear url de
 
 						if (empty($idtipo_producto))
 						{
-							$rspta=$accesorio->insertar_solo_accesorio_sin_tp($nombre,$tipo_accesorio,$rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,
+							$rspta=$accesorio->insertar_solo_accesorio_sin_tp($nombre,$precio_base,$tipo_accesorio,$rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,
 							$style);
 							echo $rspta ? "Accesorio registrado" : "Accesorio no se pudo registrar";
 						}
 						else
 						{
-							$rspta=$accesorio->insertar_solo_accesorio_con_tp($nombre,$tipo_accesorio,$rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,
+							$rspta=$accesorio->insertar_solo_accesorio_con_tp($nombre,$precio_base,$tipo_accesorio,$rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,
 							$style,$idtipo_producto);
 							echo $rspta ? "Accesorio registrado" : "Accesorio no se pudo registrar";
 						}
@@ -68,13 +69,13 @@ switch ($_GET["op"]){ //Creacion de variable op con metodo get para crear url de
 
 						if (empty($idtipo_producto))
 						{
-							$rspta=$accesorio->insertar_full_sin_tp($nombre,$tipo_accesorio,$rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,
+							$rspta=$accesorio->insertar_full_sin_tp($nombre,$precio_base,$tipo_accesorio,$rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,
 							$style,$_POST['idproducto'],array_values(array_filter($uso_option,'strlen')));
 							echo $rspta ? "Accesorio registrado" : "Accesorio no se pudo registrar";
 						}
 						else
 						{
-							$rspta=$accesorio->insertar_full($nombre,$tipo_accesorio,$rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,
+							$rspta=$accesorio->insertar_full($nombre,$precio_base,$tipo_accesorio,$rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,
 							$style,$_POST['idproducto'],array_values(array_filter($uso_option,'strlen')),$idtipo_producto);
 							echo $rspta ? "Accesorio registrado" : "Accesorio no se pudo registrar";
 						}
@@ -88,13 +89,13 @@ switch ($_GET["op"]){ //Creacion de variable op con metodo get para crear url de
 
 						if (empty($idtipo_producto))
 						{
-							$rspta=$accesorio->editar3($idaccesorio,$nombre,$tipo_accesorio,$rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,
+							$rspta=$accesorio->editar3($idaccesorio,$nombre,$precio_base,$tipo_accesorio,$rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,
 							$style);
 							echo $rspta ? "Accesorio actualizado" : "Accesorio no se pudo actualizar";
 						}
 						else
 						{
-							$rspta=$accesorio->editar2($idaccesorio,$nombre,$tipo_accesorio,$rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,
+							$rspta=$accesorio->editar2($idaccesorio,$nombre,$precio_base,$tipo_accesorio,$rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,
 							$style,$idtipo_producto);
 							echo $rspta ? "Accesorio actualizado" : "Accesorio no se pudo actualizar";
 						}
@@ -105,13 +106,13 @@ switch ($_GET["op"]){ //Creacion de variable op con metodo get para crear url de
 
 					if (empty($idtipo_producto))
 					{
-						$rspta=$accesorio->editar4($idaccesorio,$nombre,$tipo_accesorio,$rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,
+						$rspta=$accesorio->editar4($idaccesorio,$nombre,$precio_base,$tipo_accesorio,$rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,
 						$style,$idproducto,array_values(array_filter($uso_option,'strlen')));
 						echo $rspta ? "Accesorio actualizado" : "Accesorio no se pudo actualizar";
 					}
 					else
 					{
-						$rspta=$accesorio->editar($idaccesorio,$nombre,$tipo_accesorio,$rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,
+						$rspta=$accesorio->editar($idaccesorio,$nombre,$precio_base,$tipo_accesorio,$rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,
 						$style,$idproducto,array_values(array_filter($uso_option,'strlen')),$idtipo_producto);
 						echo $rspta ? "Accesorio actualizado" : "Accesorio no se pudo actualizar";
 					}

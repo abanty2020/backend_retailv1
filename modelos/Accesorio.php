@@ -16,10 +16,10 @@ Class Accesorio
 	/*--------------------------- 
 	| FUNCION GUARDAR REGISTROS	| 
 	---------------------------*/ 
-	public function insertar_full($nombre,$tipo_accesorio, $rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,$style,$idproducto,$uso_option,$idtipo_producto) 
+	public function insertar_full($nombre,$precio_base,$tipo_accesorio, $rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,$style,$idproducto,$uso_option,$idtipo_producto) 
 	{ 
-		$sql="INSERT INTO accesorio(nombre,tipo_accesorio,rango_option,rango,cantidad_min_option,cantidad_min,descripcion,imagen,color,style,nuevo,estado) 
-		VALUES ('$nombre','$tipo_accesorio','$rango_option','$rango','$cantidad_min_option','$cantidad_min','$descripcion','$imagen','$color','$style','1','1')"; 
+		$sql="INSERT INTO accesorio(nombre,precio_base,tipo_accesorio,rango_option,rango,cantidad_min_option,cantidad_min,descripcion,imagen,color,style,nuevo,estado) 
+		VALUES ('$nombre','$precio_base','$tipo_accesorio','$rango_option','$rango','$cantidad_min_option','$cantidad_min','$descripcion','$imagen','$color','$style','1','1')"; 
  
 		$idaccesorionew=ejecutarConsulta_retornarID($sql); 
 		setlocale(LC_ALL, "en_US.utf8");  
@@ -54,10 +54,10 @@ Class Accesorio
 	/*--------------------------------------------------------- 
 	| FUNCION GUARDAR REGISTROS CON DETALLE SIN TIPO PRODUCTO	| 
 	---------------------------------------------------------*/ 
-	public function insertar_full_sin_tp($nombre,$tipo_accesorio,$rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,$style,$idproducto,$uso_option) 
+	public function insertar_full_sin_tp($nombre,$precio_base,$tipo_accesorio,$rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,$style,$idproducto,$uso_option) 
 	{ 
-		$sql="INSERT INTO accesorio(nombre,tipo_accesorio,rango_option,rango,cantidad_min_option,cantidad_min,descripcion,imagen,color,style,nuevo,estado) 
-		VALUES ('$nombre','$tipo_accesorio','$rango_option','$rango','$cantidad_min_option','$cantidad_min','$descripcion','$imagen','$color','$style','1','1')"; 
+		$sql="INSERT INTO accesorio(nombre,precio_base,tipo_accesorio,rango_option,rango,cantidad_min_option,cantidad_min,descripcion,imagen,color,style,nuevo,estado) 
+		VALUES ('$nombre','$precio_base','$tipo_accesorio','$rango_option','$rango','$cantidad_min_option','$cantidad_min','$descripcion','$imagen','$color','$style','1','1')"; 
  
 		$idaccesorionew=ejecutarConsulta_retornarID($sql); 
 		setlocale(LC_ALL, "en_US.utf8");  
@@ -83,10 +83,10 @@ Class Accesorio
 	/*--------------------------------------- 
 	| FUNCION GUARDAR REGISTROS SIN DETALLE	| 
 	---------------------------------------*/ 
-	public function insertar_solo_accesorio_con_tp($nombre,$tipo_accesorio, $rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,$style,$idtipo_producto) 
+	public function insertar_solo_accesorio_con_tp($nombre,$precio_base,$tipo_accesorio, $rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,$style,$idtipo_producto) 
 	{ 
-		$sql="INSERT INTO accesorio(nombre,tipo_accesorio,rango_option,rango,cantidad_min_option,cantidad_min,descripcion,imagen,color,style,nuevo,estado) 
-		VALUES ('$nombre','$tipo_accesorio','$rango_option','$rango','$cantidad_min_option','$cantidad_min','$descripcion','$imagen','$color','$style','1','1')"; 
+		$sql="INSERT INTO accesorio(nombre,precio_base,tipo_accesorio,rango_option,rango,cantidad_min_option,cantidad_min,descripcion,imagen,color,style,nuevo,estado) 
+		VALUES ('$nombre','$precio_base','$tipo_accesorio','$rango_option','$rango','$cantidad_min_option','$cantidad_min','$descripcion','$imagen','$color','$style','1','1')"; 
  
 		$idaccesorionew=ejecutarConsulta_retornarID($sql); 
 		setlocale(LC_ALL, "en_US.utf8");  
@@ -113,10 +113,10 @@ Class Accesorio
 	/*--------------------------------------------------------- 
 	| FUNCION GUARDAR REGISTROS SIN DETALLE NI TIPO PRODUCTO	| 
 	---------------------------------------------------------*/ 
-	public function insertar_solo_accesorio_sin_tp($nombre,$tipo_accesorio, $rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,$style) 
+	public function insertar_solo_accesorio_sin_tp($nombre,$precio_base,$tipo_accesorio, $rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,$style) 
 	{ 
-		$sql="INSERT INTO accesorio(nombre,tipo_accesorio,rango_option,rango,cantidad_min_option,cantidad_min,descripcion,imagen,color,style,nuevo,estado) 
-		VALUES ('$nombre','$tipo_accesorio','$rango_option','$rango','$cantidad_min_option','$cantidad_min','$descripcion','$imagen','$color','$style','1','1')"; 
+		$sql="INSERT INTO accesorio(nombre,precio_base,tipo_accesorio,rango_option,rango,cantidad_min_option,cantidad_min,descripcion,imagen,color,style,nuevo,estado) 
+		VALUES ('$nombre','$precio_base','$tipo_accesorio','$rango_option','$rango','$cantidad_min_option','$cantidad_min','$descripcion','$imagen','$color','$style','1','1')"; 
  
 		$idaccesorionew=ejecutarConsulta_retornarID($sql); 
 		setlocale(LC_ALL, "en_US.utf8");  
@@ -132,13 +132,13 @@ Class Accesorio
 	/*--------------------------- 
 	| FUNCION EDITAR REGISTROS	| 
 	---------------------------*/ 
-	public function editar($idaccesorio,$nombre,$tipo_accesorio, $rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,$style,$idproducto,$uso_option,$idtipo_producto) 
+	public function editar($idaccesorio,$nombre,$precio_base,$tipo_accesorio, $rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,$style,$idproducto,$uso_option,$idtipo_producto) 
 	{ 
 		setlocale(LC_ALL, "en_US.utf8");  
 		$val = strtr(utf8_decode($nombre), utf8_decode('ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïñòóôõöøùúûüýÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĹĺĻļĽľĿŀŁłŃńŅņŇňŉŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžſƒƠơƯưǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜǺǻǼǽǾǿ)(.'), 'AAAAAAECEEEEIIIIDNOOOOOOUUUUYsaaaaaaaeceeeeiiiinoooooouuuuyyAaAaAaCcCcCcCcDdDdEeEeEeEeEeGgGgGgGgHhHhIiIiIiIiIiIJijJjKkLlLlLlLlllNnNnNnnOoOoOoOEoeRrRrRrSsSsSsSsTtTtTtUuUuUuUuUuUuWwYyYZzZzZzsfOoUuAaIiOoUuUuUuUuUuAaAEaeOo   '); 
 		$ruta = strtolower(str_replace(" ", "-", $val)); 
 
-		$sql = "UPDATE accesorio SET idaccesorio='$idaccesorio',nombre='$nombre',tipo_accesorio='$tipo_accesorio',rango_option='$rango_option',rango='$rango', 
+		$sql = "UPDATE accesorio SET idaccesorio='$idaccesorio',nombre='$nombre',precio_base='$precio_base',tipo_accesorio='$tipo_accesorio',rango_option='$rango_option',rango='$rango', 
 		cantidad_min_option='$cantidad_min_option',cantidad_min='$cantidad_min',descripcion='$descripcion',imagen='$imagen',ruta='$ruta-$idaccesorio', 
 		color='$color',style='$style' 
 		WHERE idaccesorio='$idaccesorio'"; 
@@ -177,13 +177,13 @@ Class Accesorio
 	/*------------------------------------------------- 
 	| FUNCION EDITAR REGISTROS SIN CAMPO OBLIGATORIO	| 
 	-------------------------------------------------*/ 
-	public function editar2($idaccesorio,$nombre,$tipo_accesorio, $rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,$style,$idtipo_producto) 
+	public function editar2($idaccesorio,$nombre,$precio_base,$tipo_accesorio, $rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,$style,$idtipo_producto) 
 	{ 
 		setlocale(LC_ALL, "en_US.utf8");  
 		$val = strtr(utf8_decode($nombre), utf8_decode('ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïñòóôõöøùúûüýÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĹĺĻļĽľĿŀŁłŃńŅņŇňŉŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžſƒƠơƯưǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜǺǻǼǽǾǿ)(.'), 'AAAAAAECEEEEIIIIDNOOOOOOUUUUYsaaaaaaaeceeeeiiiinoooooouuuuyyAaAaAaCcCcCcCcDdDdEeEeEeEeEeGgGgGgGgHhHhIiIiIiIiIiIJijJjKkLlLlLlLlllNnNnNnnOoOoOoOEoeRrRrRrSsSsSsSsTtTtTtUuUuUuUuUuUuWwYyYZzZzZzsfOoUuAaIiOoUuUuUuUuUuAaAEaeOo   '); 
 		$ruta = strtolower(str_replace(" ", "-", $val)); 
 
-		$sql = "UPDATE accesorio SET idaccesorio='$idaccesorio',nombre='$nombre',tipo_accesorio='$tipo_accesorio',rango_option='$rango_option',rango='$rango', 
+		$sql = "UPDATE accesorio SET idaccesorio='$idaccesorio',nombre='$nombre',precio_base='$precio_base',tipo_accesorio='$tipo_accesorio',rango_option='$rango_option',rango='$rango', 
 		cantidad_min_option='$cantidad_min_option',cantidad_min='$cantidad_min',descripcion='$descripcion',imagen='$imagen',ruta='$ruta-$idaccesorio',
 		color='$color',style='$style' 
 		WHERE idaccesorio='$idaccesorio'"; 
@@ -215,13 +215,13 @@ Class Accesorio
 	/*--------------------------------------------------------- 
 	| FUNCION EDITAR REGISTROS CON DETALLE SIN TIPO PRODUCTO	| 
 	---------------------------------------------------------*/ 
-	public function editar4($idaccesorio,$nombre,$tipo_accesorio, $rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,$style,$idproducto,$uso_option) 
+	public function editar4($idaccesorio,$nombre,$precio_base,$tipo_accesorio, $rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,$style,$idproducto,$uso_option) 
 	{ 
 		setlocale(LC_ALL, "en_US.utf8");  
 		$val = strtr(utf8_decode($nombre), utf8_decode('ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïñòóôõöøùúûüýÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĹĺĻļĽľĿŀŁłŃńŅņŇňŉŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžſƒƠơƯưǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜǺǻǼǽǾǿ)(.'), 'AAAAAAECEEEEIIIIDNOOOOOOUUUUYsaaaaaaaeceeeeiiiinoooooouuuuyyAaAaAaCcCcCcCcDdDdEeEeEeEeEeGgGgGgGgHhHhIiIiIiIiIiIJijJjKkLlLlLlLlllNnNnNnnOoOoOoOEoeRrRrRrSsSsSsSsTtTtTtUuUuUuUuUuUuWwYyYZzZzZzsfOoUuAaIiOoUuUuUuUuUuAaAEaeOo   '); 
 		$ruta = strtolower(str_replace(" ", "-", $val)); 
 
-		$sql = "UPDATE accesorio SET idaccesorio='$idaccesorio',nombre='$nombre',tipo_accesorio='$tipo_accesorio',rango_option='$rango_option',rango='$rango', 
+		$sql = "UPDATE accesorio SET idaccesorio='$idaccesorio',nombre='$nombre',precio_base='$precio_base',tipo_accesorio='$tipo_accesorio',rango_option='$rango_option',rango='$rango', 
 		cantidad_min_option='$cantidad_min_option',cantidad_min='$cantidad_min',descripcion='$descripcion',imagen='$imagen', ruta='$ruta-$idaccesorio',
 		color='$color',style='$style' 
 		WHERE idaccesorio='$idaccesorio'"; 
@@ -251,13 +251,13 @@ Class Accesorio
 	/*----------------------------------------------------------------- 
 	| FUNCION EDITAR REGISTROS SIN CAMPO OBLIGATORIO NI TIPO PRODUCTO	| 
 	-----------------------------------------------------------------*/ 
-	public function editar3($idaccesorio,$nombre,$tipo_accesorio, $rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,$style) 
+	public function editar3($idaccesorio,$nombre,$precio_base,$tipo_accesorio, $rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,$style) 
 	{ 
 		setlocale(LC_ALL, "en_US.utf8");  
 		$val = strtr(utf8_decode($nombre), utf8_decode('ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïñòóôõöøùúûüýÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĹĺĻļĽľĿŀŁłŃńŅņŇňŉŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžſƒƠơƯưǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜǺǻǼǽǾǿ)(.'), 'AAAAAAECEEEEIIIIDNOOOOOOUUUUYsaaaaaaaeceeeeiiiinoooooouuuuyyAaAaAaCcCcCcCcDdDdEeEeEeEeEeGgGgGgGgHhHhIiIiIiIiIiIJijJjKkLlLlLlLlllNnNnNnnOoOoOoOEoeRrRrRrSsSsSsSsTtTtTtUuUuUuUuUuUuWwYyYZzZzZzsfOoUuAaIiOoUuUuUuUuUuAaAEaeOo   '); 
 		$ruta = strtolower(str_replace(" ", "-", $val)); 
 		
-		$sql = "UPDATE accesorio SET idaccesorio='$idaccesorio',nombre='$nombre',tipo_accesorio='$tipo_accesorio',rango_option='$rango_option',rango='$rango', 
+		$sql = "UPDATE accesorio SET idaccesorio='$idaccesorio',nombre='$nombre',precio_base='$precio_base',tipo_accesorio='$tipo_accesorio',rango_option='$rango_option',rango='$rango', 
 		cantidad_min_option='$cantidad_min_option',cantidad_min='$cantidad_min',descripcion='$descripcion',imagen='$imagen', ruta='$ruta-$idaccesorio',
 		color='$color',style='$style' 
 		WHERE idaccesorio='$idaccesorio'"; 

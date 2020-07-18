@@ -124,7 +124,7 @@ Class Pedido
 	---------------------------*/ 
 	public function mostrar_detalle_pedido($idpedido) 
 	{ 
-		$sql="SELECT dp.iddetalle_pedido,p.idpedido,a.idaccesorio,pto.idproducto, dp.cantidad, dp.precio,pto.nombre producto,pto.descripcion descripcion_producto,a.nombre accesorio,a.descripcion descripcion_accesorio,pto.imagen imagen_producto,a.imagen imagen_accesorio, p.total,p.estado FROM detalle_pedido dp
+		$sql="SELECT dp.iddetalle_pedido,p.idpedido,a.idaccesorio,pto.idproducto, dp.cantidad, dp.precio,pto.nombre producto,pto.descripcion descripcion_producto,a.nombre accesorio,a.descripcion descripcion_accesorio,pto.imagen imagen_producto,a.imagen imagen_accesorio, p.total,p.estado,a.precio_base FROM detalle_pedido dp
 		INNER JOIN pedido p ON p.idpedido = dp.idpedido 
 		LEFT JOIN producto pto ON pto.idproducto = dp.idproducto
 		LEFT JOIN accesorio a ON a.idaccesorio = dp.idaccesorio

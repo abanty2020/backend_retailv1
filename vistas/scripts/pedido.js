@@ -795,8 +795,9 @@ function mostrar(idpedido) {
          var imagen = datos.imagen_accesorio == null ? datos.imagen_producto : datos.imagen_accesorio;
 
          console.log(datos);
+
          var subtotal = 0;
-         var precio_local = datos.precio == 0 ? '' : datos.precio;
+         var precio_local = datos.precio == 0 ? datos.precio_base : datos.precio;
          var desactivadoI;
 
          if (datos.estado == 2 || datos.estado == 3) {

@@ -102,13 +102,13 @@ if ($_SESSION['productos']==1)
                              <option data-icon="fa fa-check-square-o" value="mono">Mono</option>
                            </select>
                         </div>                                                            
-                        <div class="form-group col-lg-2 col-md-2 col-sm-3 col-xs-4">
+                        <div class="form-group col-lg-2 col-md-2 col-sm-3 col-xs-12">
                            <label>Rango?</label><br>
                            <div class="classcheckbox">
                                  <input type="checkbox" id="rango_option" name="rango_option" data-off-active-cls="btn-danger" data-on-active-cls="btn-primary">
                            </div>
                         </div>
-                        <div class="form-group col-lg-3 col-md-5 col-sm-4 col-xs-8">
+                        <div class="form-group col-lg-3 col-md-5 col-sm-4 col-xs-12">
                            <label>Rango (cm)</label>
                          <input type="number" step="any" class="form-control" name="rango" id="rango" placeholder="Rango en centímetros">
                         </div>                     
@@ -116,19 +116,31 @@ if ($_SESSION['productos']==1)
                            <label>Tipo producto:</label>
                            <select class="form-control select-picker show-tick"  title="Selecciona..." data-style="btn-primary" id="idtipo_producto" name="idtipo_producto[]" data-live-search="true" multiple>
                            </select>
-                        </div>                                              
-                        <div class="form-group col-lg-2 col-md-2 col-sm-3 col-xs-4">
+                        </div>                                                                    
+                      
+
+                        <div class="form-group col-lg-3 col-md-5 col-sm-4 col-xs-12">
+                           <label>Precio base:</label>
+                           <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+                            <input id="precio_base" type="number" step="0.01" class="form-control" name="precio_base" onfocus="this.select();" placeholder="0.00">
+                          </div>
+                        </div> 
+
+                        <div class="form-group col-lg-2 col-md-2 col-sm-3 col-xs-12">
                            <label>Cantidad minima?</label><br>
                            <div class="classcheckbox">
                                   <input type="checkbox" id="cantidad_min_option" name="cantidad_min_option" data-off-active-cls="btn-danger" data-on-active-cls="btn-primary">
                            </div>
                         </div>
-                        <div class="form-group col-lg-3 col-md-5 col-sm-4 col-xs-8">
+
+                        <div class="form-group col-lg-offset-4 col-lg-3 col-md-5 col-sm-4 col-xs-12">
                            <label>Cantidad minima:</label>
                          <input type="number" class="form-control" name="cantidad_min" id="cantidad_min" placeholder="Cantidad minima">
                         </div>   
 
-                        <div class="form-group  col-lg-offset-9 col-lg-12">
+                        <div class="form-group col-lg-offset-2 col-lg-3 col-md-3 col-sm-3 col-xs-12" >
+                          <br>
                            <button class="btn btn-success dtext" style="margin-top: 10px;" type="button" data-toggle="modal" data-target="#modaltblproductos"><i class="fa fa-list"></i>
                               Relacionar Producto
                             </button>   
