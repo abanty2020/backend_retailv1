@@ -165,10 +165,11 @@ if (!isset($_SESSION["nombre"])) {
                            </div>                        
 
                            <div class="col-lg-2">
-                              <button type="button" class="btn btn-warning" onclick="enviarPdf()" data-toggle="tooltip" data-placement="top" title="Enviar PDF por Email"><i class="fa fa-file-pdf-o"></i> Enviar Email</button>
+                              <button id="enviarReporte" type="button" class="btn btn-warning" onclick="enviarPdf()" data-toggle="tooltip" data-placement="top" title="Enviar PDF por Email"><i class="fa fa-file-pdf-o"></i> Enviar Email</button>
                            </div>
+                           
                            <div class="col-lg-3">
-                              <button type="button" class="btn btn-success" onclick="abrirModalArticulos()"><span class="fa fa-plus"></span> Agregar artículo</button>
+                              <button id="addArt" type="button" class="btn btn-success" onclick="abrirModalArticulos()"><span class="fa fa-plus"></span> Agregar artículo</button>
                            </div>
                            
                         </div>

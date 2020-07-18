@@ -55,7 +55,7 @@ Class Pedido
 	
 
 	/*----------------------------------------------------------*
-	| FUNCION PARA MODIFICAR DATOS DEL COMPROMISO DINAMICAMENTE |
+	| FUNCION PARA MODIFICAR DATOS DEL DATATABLE DINAMICAMENTE |
 	.----------------------------------------------------------*/
 	public function modificardatos($id,$columna_nombre,$valor)
 	{
@@ -124,7 +124,7 @@ Class Pedido
 	---------------------------*/ 
 	public function mostrar_detalle_pedido($idpedido) 
 	{ 
-		$sql="SELECT dp.iddetalle_pedido,p.idpedido,a.idaccesorio,pto.idproducto, dp.cantidad, dp.precio,pto.nombre producto,pto.descripcion descripcion_producto,a.nombre accesorio,a.descripcion descripcion_accesorio,pto.imagen imagen_producto,a.imagen imagen_accesorio, p.total FROM detalle_pedido dp
+		$sql="SELECT dp.iddetalle_pedido,p.idpedido,a.idaccesorio,pto.idproducto, dp.cantidad, dp.precio,pto.nombre producto,pto.descripcion descripcion_producto,a.nombre accesorio,a.descripcion descripcion_accesorio,pto.imagen imagen_producto,a.imagen imagen_accesorio, p.total,p.estado FROM detalle_pedido dp
 		INNER JOIN pedido p ON p.idpedido = dp.idpedido 
 		LEFT JOIN producto pto ON pto.idproducto = dp.idproducto
 		LEFT JOIN accesorio a ON a.idaccesorio = dp.idaccesorio
@@ -141,6 +141,14 @@ Class Pedido
 		public function rechazar_pedido($idpedido) 
 		{ 
 			$sql="UPDATE pedido SET estado='3' WHERE idpedido = '$idpedido'"; 
+			return ejecutarConsulta($sql); 
+		} 	
+
+
+		/** ACTUALIZAR ESTADO RECHAZADO */ 
+		public function cambiar_estado_dinamico($idpedido,$estado) 
+		{ 
+			$sql="UPDATE pedido SET estado='$estado' WHERE idpedido = '$idpedido'"; 
 			return ejecutarConsulta($sql); 
 		} 	
 

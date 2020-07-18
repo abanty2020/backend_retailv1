@@ -23,7 +23,7 @@ Class Accesorio
  
 		$idaccesorionew=ejecutarConsulta_retornarID($sql); 
 		setlocale(LC_ALL, "en_US.utf8");  
-		$val = strtr(utf8_decode($nombre), utf8_decode('ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïñòóôõöøùúûüýÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĹĺĻļĽľĿŀŁłŃńŅņŇňŉŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžſƒƠơƯưǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜǺǻǼǽǾǿ)('), 'AAAAAAECEEEEIIIIDNOOOOOOUUUUYsaaaaaaaeceeeeiiiinoooooouuuuyyAaAaAaCcCcCcCcDdDdEeEeEeEeEeGgGgGgGgHhHhIiIiIiIiIiIJijJjKkLlLlLlLlllNnNnNnnOoOoOoOEoeRrRrRrSsSsSsSsTtTtTtUuUuUuUuUuUuWwYyYZzZzZzsfOoUuAaIiOoUuUuUuUuUuAaAEaeOo  '); 
+		$val = strtr(utf8_decode($nombre), utf8_decode('ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïñòóôõöøùúûüýÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĹĺĻļĽľĿŀŁłŃńŅņŇňŉŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžſƒƠơƯưǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜǺǻǼǽǾǿ)(.'), 'AAAAAAECEEEEIIIIDNOOOOOOUUUUYsaaaaaaaeceeeeiiiinoooooouuuuyyAaAaAaCcCcCcCcDdDdEeEeEeEeEeGgGgGgGgHhHhIiIiIiIiIiIJijJjKkLlLlLlLlllNnNnNnnOoOoOoOEoeRrRrRrSsSsSsSsTtTtTtUuUuUuUuUuUuWwYyYZzZzZzsfOoUuAaIiOoUuUuUuUuUuAaAEaeOo   '); 
 		$ruta = strtolower(str_replace(" ", "-", $val)); 
  
 		$num_elementos=0; 
@@ -134,8 +134,12 @@ Class Accesorio
 	---------------------------*/ 
 	public function editar($idaccesorio,$nombre,$tipo_accesorio, $rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,$style,$idproducto,$uso_option,$idtipo_producto) 
 	{ 
+		setlocale(LC_ALL, "en_US.utf8");  
+		$val = strtr(utf8_decode($nombre), utf8_decode('ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïñòóôõöøùúûüýÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĹĺĻļĽľĿŀŁłŃńŅņŇňŉŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžſƒƠơƯưǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜǺǻǼǽǾǿ)(.'), 'AAAAAAECEEEEIIIIDNOOOOOOUUUUYsaaaaaaaeceeeeiiiinoooooouuuuyyAaAaAaCcCcCcCcDdDdEeEeEeEeEeGgGgGgGgHhHhIiIiIiIiIiIJijJjKkLlLlLlLlllNnNnNnnOoOoOoOEoeRrRrRrSsSsSsSsTtTtTtUuUuUuUuUuUuWwYyYZzZzZzsfOoUuAaIiOoUuUuUuUuUuAaAEaeOo   '); 
+		$ruta = strtolower(str_replace(" ", "-", $val)); 
+
 		$sql = "UPDATE accesorio SET idaccesorio='$idaccesorio',nombre='$nombre',tipo_accesorio='$tipo_accesorio',rango_option='$rango_option',rango='$rango', 
-		cantidad_min_option='$cantidad_min_option',cantidad_min='$cantidad_min',descripcion='$descripcion',imagen='$imagen', 
+		cantidad_min_option='$cantidad_min_option',cantidad_min='$cantidad_min',descripcion='$descripcion',imagen='$imagen',ruta='$ruta-$idaccesorio', 
 		color='$color',style='$style' 
 		WHERE idaccesorio='$idaccesorio'"; 
 		ejecutarConsulta($sql); 
@@ -175,8 +179,12 @@ Class Accesorio
 	-------------------------------------------------*/ 
 	public function editar2($idaccesorio,$nombre,$tipo_accesorio, $rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,$style,$idtipo_producto) 
 	{ 
+		setlocale(LC_ALL, "en_US.utf8");  
+		$val = strtr(utf8_decode($nombre), utf8_decode('ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïñòóôõöøùúûüýÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĹĺĻļĽľĿŀŁłŃńŅņŇňŉŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžſƒƠơƯưǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜǺǻǼǽǾǿ)(.'), 'AAAAAAECEEEEIIIIDNOOOOOOUUUUYsaaaaaaaeceeeeiiiinoooooouuuuyyAaAaAaCcCcCcCcDdDdEeEeEeEeEeGgGgGgGgHhHhIiIiIiIiIiIJijJjKkLlLlLlLlllNnNnNnnOoOoOoOEoeRrRrRrSsSsSsSsTtTtTtUuUuUuUuUuUuWwYyYZzZzZzsfOoUuAaIiOoUuUuUuUuUuAaAEaeOo   '); 
+		$ruta = strtolower(str_replace(" ", "-", $val)); 
+
 		$sql = "UPDATE accesorio SET idaccesorio='$idaccesorio',nombre='$nombre',tipo_accesorio='$tipo_accesorio',rango_option='$rango_option',rango='$rango', 
-		cantidad_min_option='$cantidad_min_option',cantidad_min='$cantidad_min',descripcion='$descripcion',imagen='$imagen', 
+		cantidad_min_option='$cantidad_min_option',cantidad_min='$cantidad_min',descripcion='$descripcion',imagen='$imagen',ruta='$ruta-$idaccesorio',
 		color='$color',style='$style' 
 		WHERE idaccesorio='$idaccesorio'"; 
 		ejecutarConsulta($sql); 
@@ -209,8 +217,12 @@ Class Accesorio
 	---------------------------------------------------------*/ 
 	public function editar4($idaccesorio,$nombre,$tipo_accesorio, $rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,$style,$idproducto,$uso_option) 
 	{ 
+		setlocale(LC_ALL, "en_US.utf8");  
+		$val = strtr(utf8_decode($nombre), utf8_decode('ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïñòóôõöøùúûüýÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĹĺĻļĽľĿŀŁłŃńŅņŇňŉŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžſƒƠơƯưǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜǺǻǼǽǾǿ)(.'), 'AAAAAAECEEEEIIIIDNOOOOOOUUUUYsaaaaaaaeceeeeiiiinoooooouuuuyyAaAaAaCcCcCcCcDdDdEeEeEeEeEeGgGgGgGgHhHhIiIiIiIiIiIJijJjKkLlLlLlLlllNnNnNnnOoOoOoOEoeRrRrRrSsSsSsSsTtTtTtUuUuUuUuUuUuWwYyYZzZzZzsfOoUuAaIiOoUuUuUuUuUuAaAEaeOo   '); 
+		$ruta = strtolower(str_replace(" ", "-", $val)); 
+
 		$sql = "UPDATE accesorio SET idaccesorio='$idaccesorio',nombre='$nombre',tipo_accesorio='$tipo_accesorio',rango_option='$rango_option',rango='$rango', 
-		cantidad_min_option='$cantidad_min_option',cantidad_min='$cantidad_min',descripcion='$descripcion',imagen='$imagen', 
+		cantidad_min_option='$cantidad_min_option',cantidad_min='$cantidad_min',descripcion='$descripcion',imagen='$imagen', ruta='$ruta-$idaccesorio',
 		color='$color',style='$style' 
 		WHERE idaccesorio='$idaccesorio'"; 
 		ejecutarConsulta($sql); 
@@ -241,8 +253,12 @@ Class Accesorio
 	-----------------------------------------------------------------*/ 
 	public function editar3($idaccesorio,$nombre,$tipo_accesorio, $rango_option,$rango,$cantidad_min_option,$cantidad_min,$descripcion,$imagen,$color,$style) 
 	{ 
+		setlocale(LC_ALL, "en_US.utf8");  
+		$val = strtr(utf8_decode($nombre), utf8_decode('ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïñòóôõöøùúûüýÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĹĺĻļĽľĿŀŁłŃńŅņŇňŉŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžſƒƠơƯưǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜǺǻǼǽǾǿ)(.'), 'AAAAAAECEEEEIIIIDNOOOOOOUUUUYsaaaaaaaeceeeeiiiinoooooouuuuyyAaAaAaCcCcCcCcDdDdEeEeEeEeEeGgGgGgGgHhHhIiIiIiIiIiIJijJjKkLlLlLlLlllNnNnNnnOoOoOoOEoeRrRrRrSsSsSsSsTtTtTtUuUuUuUuUuUuWwYyYZzZzZzsfOoUuAaIiOoUuUuUuUuUuAaAEaeOo   '); 
+		$ruta = strtolower(str_replace(" ", "-", $val)); 
+		
 		$sql = "UPDATE accesorio SET idaccesorio='$idaccesorio',nombre='$nombre',tipo_accesorio='$tipo_accesorio',rango_option='$rango_option',rango='$rango', 
-		cantidad_min_option='$cantidad_min_option',cantidad_min='$cantidad_min',descripcion='$descripcion',imagen='$imagen', 
+		cantidad_min_option='$cantidad_min_option',cantidad_min='$cantidad_min',descripcion='$descripcion',imagen='$imagen', ruta='$ruta-$idaccesorio',
 		color='$color',style='$style' 
 		WHERE idaccesorio='$idaccesorio'"; 
 		ejecutarConsulta($sql); 

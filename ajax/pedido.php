@@ -22,7 +22,7 @@ $estado = isset($_POST["state"]) ? limpiarCadena($_POST["state"]) : "";
 $idproducto = isset($_POST["idproducto"]) ? $_POST["idproducto"] : '';
 $idaccesorio = isset($_POST["idaccesorio"]) ? $_POST["idaccesorio"] : '';
 
-$newStr = isset($_POST["precio"]) ? str_replace('S/', '', $_POST['precio']): '';
+$newStr = isset($_POST["precio"]) ? str_replace('S/', '', $_POST['precio']) : '';
 $number = str_replace(',', '', $newStr);
 // $num = intval($newStr);
 switch ($estado) {
@@ -42,7 +42,6 @@ switch ($estado) {
 	default:
 		$estado = '1';
 		break;
-		
 }
 
 
@@ -57,9 +56,9 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
 		if (empty($idpedido)) {
 			// $rspta=$pedido->insertar($nombre,$color,$style);
 			// echo $rspta ? "Categoria registrada" : "Categoria no se pudo registrar";
-		} else {	
+		} else {
 
-			$rspta = $pedido->actualizar_pedido($idpedido, $empresa, $tipo_negocio, $ruc, $representante, $cantidad_productos, $telefono, $email, $cantidad_entradas, $total, $estado, $idaccesorio, $idproducto, $_POST['cantidad'],$number);
+			$rspta = $pedido->actualizar_pedido($idpedido, $empresa, $tipo_negocio, $ruc, $representante, $cantidad_productos, $telefono, $email, $cantidad_entradas, $total, $estado, $idaccesorio, $idproducto, $_POST['cantidad'], $number);
 			echo $rspta ? "Pedido actualizado" : "Pedido no se pudo actualizar";
 		}
 		break;
@@ -82,6 +81,15 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
 		echo $rspta ? "Pedido rechazado" : "Pedido no se puede rechazar";
 		break;
 
+	/*-----------------------
+	| CASE ESTADO RECHAZADO |
+	-----------------------*/
+	case 'cambiar_estado_dinamico':
+		$newEstado = isset($_POST["estadoData"]) ? $_POST["estadoData"] : '';		
+		$rspta = $pedido->cambiar_estado_dinamico($idpedido,$newEstado);
+		echo $rspta ? "Estado modificado" : "Estado no se puede modificadar";
+		break;		
+
 
 	/*--------------
 	| CASE MOSTRAR |
@@ -93,7 +101,7 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
 		break;
 
 
-	/*-----------------------------
+		/*-----------------------------
  	| CASE LISTAR PEDIDOS GENERAL |
  	-----------------------------*/
 	case 'listar_general':
@@ -107,18 +115,35 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
 				case 0:
 					$estado = '<span class="label bg-green">Pendiente</span>';
 					$btn_pdf = '';
+					$colorbtn = 'btn-success';
 					break;
 				case 1:
 					$estado = '<span class="label bg-aqua">Atendido</span>';
-					$btn_pdf = '<button class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Visualizar PDF"><i class="fa fa-file-pdf-o"></i></button>';
+					$url = '../reportes/reportec.php?id=';
+
+					$btn_pdf = '<a class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Visualizar PDF" target="_blank" href="' . $url . $reg->idpedido . '"><i class="fa fa-file-pdf-o"></i></a>';
+
+					$colorbtn = 'btn-info';
 					break;
 				case 2:
-					$estado = '<span class="label bg-maroon">Finalizado</span>';
-					$btn_pdf = '<button class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Visualizar PDF"><i class="fa fa-file-pdf-o"></i></button>';
+					$estado = '<select class="selectpicker selectRow" data-style="btn-xs bg-maroon" data-width="fit" title="Finalizado" onchange="cambiarEstadoTabla(this,' . $reg->idpedido . ');">
+			
+					<option value="0" class="label bg-green">Pendiente</option>
+					<option value="1" class="label bg-aqua">Atendido</option>
+					<option value="3" class="label bg-red">Rechazado</option>
+	
+				 </select>';
+					
+					// '<span class="label bg-maroon">Finalizado</span>';
+					$url = '../reportes/reportec.php?id=';
+
+					$btn_pdf = '<a class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Visualizar PDF" target="_blank" href="' . $url . $reg->idpedido . '"><i class="fa fa-file-pdf-o"></i></a>';
+					$colorbtn = 'bg-maroon';
 					break;
 				case 3:
 					$estado = '<span class="label bg-red">Rechazado</span>';
 					$btn_pdf = '';
+					$colorbtn = 'btn-danger';
 					break;
 			}
 
@@ -129,7 +154,7 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
 				"3" => '<div onclick="listenForDoubleClick(this);" onblur="this.contentEditable=true;" class="update" data-id="' . $reg->idpedido . '" data-column="nombre_empresa"><b>' . strtoupper($reg->nombre_empresa) . '</b></div>',
 				"4" => '<div onclick="listenForDoubleClick(this);" onblur="this.contentEditable=true;" class="update" data-id="' . $reg->idpedido . '" data-column="telefono">' . $reg->telefono . '</div>',
 				"5" => $estado,
-				"6" => '<button class="btn btn-warning btn-sm" onclick="mostrar(' . $reg->idpedido . ')" data-toggle="tooltip" data-placement="top" title="Visualizar Detalle"><i class="fa fa-eye"></i></button> '.$btn_pdf 
+				"6" => '<button class="btn ' . $colorbtn . ' btn-sm" onclick="mostrar(' . $reg->idpedido . ')" data-toggle="tooltip" data-placement="top" title="Visualizar Detalle"><i class="fa fa-eye"></i></button> ' . $btn_pdf
 			);
 		}
 
@@ -144,7 +169,7 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
 		break;
 
 
-	/*--------------------------------
+		/*--------------------------------
  	| CASE LISTAR PEDIDOS PENDIENTES |
  	--------------------------------*/
 	case 'listar_pendientes':
@@ -186,9 +211,9 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
 
 		while ($reg = $rspta->fetch_object()) {
 
-			$url='../reportes/reportec.php?id=';
-	
-			$btn_pdf = '<a class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Visualizar PDF" target="_blank" href="'.$url.$reg->idpedido.'"><i class="fa fa-file-pdf-o"></i></a>';
+			$url = '../reportes/reportec.php?id=';
+
+			$btn_pdf = '<a class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Visualizar PDF" target="_blank" href="' . $url . $reg->idpedido . '"><i class="fa fa-file-pdf-o"></i></a>';
 
 			$data[] = array(
 				"0" => '<span class="spanproduct">P-' . $reg->idpedido . '</span>',
@@ -197,7 +222,7 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
 				"3" => '<div onclick="listenForDoubleClick(this);" onblur="this.contentEditable=true;" class="update" data-id="' . $reg->idpedido . '" data-column="nombre_empresa"><b>' . strtoupper($reg->nombre_empresa) . '</b></div>',
 				"4" => '<div onclick="listenForDoubleClick(this);" onblur="this.contentEditable=true;" class="update" data-id="' . $reg->idpedido . '" data-column="telefono">' . $reg->telefono . '</div>',
 				"5" => ($reg->estado == '1') ? '<span class="label bg-aqua">Atendido</span>' :  '',
-				"6" => '<button class="btn btn-info btn-sm" onclick="mostrar(' . $reg->idpedido . ')" data-toggle="tooltip" data-placement="top" title="Visualizar Detalle"><i class="fa fa-eye"></i></button> '.$btn_pdf
+				"6" => '<button class="btn btn-info btn-sm" onclick="mostrar(' . $reg->idpedido . ')" data-toggle="tooltip" data-placement="top" title="Visualizar Detalle"><i class="fa fa-eye"></i></button> ' . $btn_pdf
 			);
 		}
 
@@ -222,9 +247,9 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
 
 		while ($reg = $rspta->fetch_object()) {
 
-			$url='../reportes/reportec.php?id=';
-	
-			$btn_pdf = '<a class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Visualizar PDF" target="_blank" href="'.$url.$reg->idpedido.'"><i class="fa fa-file-pdf-o"></i></a>';
+			$url = '../reportes/reportec.php?id=';
+
+			$btn_pdf = '<a class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Visualizar PDF" target="_blank" href="' . $url . $reg->idpedido . '"><i class="fa fa-file-pdf-o"></i></a>';
 
 			$data[] = array(
 				"0" => '<span class="spanproduct">P-' . $reg->idpedido . '</span>',
@@ -232,8 +257,17 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
 				"2" => '<div onclick="listenForDoubleClick(this);" onblur="this.contentEditable=true;" class="update" data-id="' . $reg->idpedido . '" data-column="nombre_representante">' . $reg->nombre_representante . '</div>',
 				"3" => '<div onclick="listenForDoubleClick(this);" onblur="this.contentEditable=true;" class="update" data-id="' . $reg->idpedido . '" data-column="nombre_empresa"><b>' . strtoupper($reg->nombre_empresa) . '</b></div>',
 				"4" => '<div onclick="listenForDoubleClick(this);" onblur="this.contentEditable=true;" class="update" data-id="' . $reg->idpedido . '" data-column="telefono">' . $reg->telefono . '</div>',
-				"5" => ($reg->estado == '2') ? '<span class="label bg-maroon">Finalizado</span>' :  '',
-				"6" => '<button class="btn bg-maroon btn-sm" onclick="mostrar(' . $reg->idpedido . ')" data-toggle="tooltip" data-placement="top" title="Visualizar Detalle"><i class="fa fa-eye"></i></button> '.$btn_pdf
+
+				"5" => '<select class="selectpicker selectRow" data-style="btn-xs bg-maroon" data-width="fit" title="FINALIZADO" onchange="cambiarEstadoTabla(this,' . $reg->idpedido . ');">
+			
+				<option value="0" class="label bg-green">Pendiente</option>
+				<option value="1" class="label bg-aqua">Atendido</option>
+				<option value="3" class="label bg-red">Rechazado</option>
+
+			 </select>',
+
+
+				"6" => '<button class="btn bg-maroon btn-sm" onclick="mostrar(' . $reg->idpedido . ')" data-toggle="tooltip" data-placement="top" title="Visualizar Detalle"><i class="fa fa-eye"></i></button> ' . $btn_pdf
 			);
 		}
 
@@ -248,7 +282,7 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
 		break;
 
 
-		/*--------------------------------
+	/*--------------------------------
  	| CASE LISTAR PEDIDOS RECHAZADOS |
  	--------------------------------*/
 	case 'listar_rechazados':
@@ -295,18 +329,18 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
 		break;
 
 
-	/*------------------------
+		/*------------------------
  	| CASE LISTAR ACCESORIOS |
  	------------------------*/
 	case 'listar_accesorios':
 		require_once "../modelos/Accesorio.php";
-	
+
 		$accesorio = new Accesorio();
 
-		
+
 
 		$rspta = $accesorio->listar();
-	
+
 		/** LISTAR ACCESORIOS */
 		//Vamos a declarar un Array
 		$data = array();
@@ -317,7 +351,7 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
 			$data[] = array(
 				"0" => '<button class="btn btn-dark" onclick="agregarDetalle(' . $reg->idaccesorio . ',\'' . $reg->descripcion . '\',\'' . $reg->imagen . '\',\'' . $identificador . '\')"><span class="fa fa-plus"></span></button>',
 				"1" => $reg->nombre,
-				"2" => '<td><img src="'. $miRutaLocal . $reg->imagen . '" class="img-thumbnail" width="150"></td>'
+				"2" => '<td><img src="' . $miRutaLocal . $reg->imagen . '" class="img-thumbnail" width="150"></td>'
 			);
 		}
 
@@ -336,7 +370,7 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
  	| CASE LISTAR PRODUCTOS |
  	-----------------------*/
 	case 'listar_productos':
-		require_once "../modelos/Producto.php";	
+		require_once "../modelos/Producto.php";
 		$producto = new Producto();
 		$rspta = $producto->listar_solo();
 		//Vamos a declarar un Array
@@ -346,7 +380,7 @@ switch ($_GET["op"]) { //Creacion de variable op con metodo get para crear url d
 			$data[] = array(
 				"0" => '<button class="btn btn-dark" onclick="agregarDetalle(' . $reg->idproducto . ',\'' . $reg->descripcion . '\',\'' . $reg->imagen . '\',\'' . $identificador . '\')"><span class="fa fa-plus"></span></button>',
 				"1" => $reg->nombre,
-				"2" => '<td><img src="'. $miRutaLocal . $reg->imagen . '" class="img-thumbnail" width="150"></td>'
+				"2" => '<td><img src="' . $miRutaLocal . $reg->imagen . '" class="img-thumbnail" width="150"></td>'
 			);
 		}
 

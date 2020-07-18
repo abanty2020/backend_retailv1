@@ -69,8 +69,7 @@ if (!isset($_SESSION["nombre"])) {
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                      <span aria-hidden="true">&times;</span></button>
 
-                  <!-- <button type="button" name="button"><a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a></button> -->
-                  <h4 class="modal-title">Pedidos pendientes</h4>
+                     <h4 class="modal-title"><i class="fa fa-book"></i> Pedidos Rechazados</h4>
                </div>
                <div class="modal-body">
                   <form name="formulario" id="formulario" method="POST">
@@ -139,7 +138,7 @@ if (!isset($_SESSION["nombre"])) {
                               <b>DETTALLE DE PEDIDO</b>
                            </div>
                            <div class="col-lg-3">
-                              <button type="button" class="btn btn-success" onclick="abrirModalArticulos()"><span class="fa fa-plus"></span> Agregar artículo</button>
+                              <button id="addArt" type="button" class="btn btn-success" onclick="abrirModalArticulos()"><span class="fa fa-plus"></span> Agregar artículo</button>
                            </div>
                         </div>
                         <br>

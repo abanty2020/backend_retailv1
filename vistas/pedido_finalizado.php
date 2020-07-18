@@ -93,8 +93,7 @@ if (!isset($_SESSION["nombre"])) {
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                      <span aria-hidden="true">&times;</span></button>
 
-                  <!-- <button type="button" name="button"><a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a></button> -->
-                  <h4 class="modal-title">Pedidos pendientes</h4>   
+                     <h4 class="modal-title"><i class="fa fa-book"></i> Pedidos Finalizados</h4> 
                  
                </div>
                <div class="modal-body">
@@ -164,10 +163,10 @@ if (!isset($_SESSION["nombre"])) {
                               <b>DETALLE DE PEDIDO</b>                              
                            </div>    
                            <div class="col-lg-2">
-                              <button type="button" class="btn btn-warning" onclick="enviarPdf()" data-toggle="tooltip" data-placement="top" title="Enviar PDF por Email"><i class="fa fa-file-pdf-o"></i> Enviar Email</button>
+                              <button id="enviarReporte" type="button" class="btn btn-warning" onclick="enviarPdf()" data-toggle="tooltip" data-placement="top" title="Enviar PDF por Email"><i class="fa fa-file-pdf-o"></i> Enviar Email</button>
                            </div>
                            <div class="col-lg-3">
-                              <button type="button" class="btn btn-success" onclick="abrirModalArticulos()"><span class="fa fa-plus"></span> Agregar artículo</button>
+                              <button id="addArt" type="button" class="btn btn-success" onclick="abrirModalArticulos()"><span class="fa fa-plus"></span> Agregar artículo</button>
                            </div>
                            
                         </div>

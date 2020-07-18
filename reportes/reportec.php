@@ -26,28 +26,33 @@ $descripcion;
 $imagen;
 $ruta = '../';
 $ruta1 = 'http://localhost/backend_retailv1/';
+$cont = 0;
 
 while ($reg = $rspta_detalle->fetch_object()) {
    
    if ($reg->idaccesorio !== null && $reg->idproducto !== null) {
-      $descripcion = $reg->descripcion_accesorio;
+      $descripcion = $reg->accesorio;
+      $pack = $reg->producto;
       $imagen =  $reg->imagen_accesorio;
    }else if($reg->idaccesorio !== null && $reg->idproducto == null){
-      $descripcion = $reg->descripcion_accesorio;
+      $descripcion = $reg->accesorio;
+      $pack = $reg->accesorio;
       $imagen =  $reg->imagen_accesorio;
    }else{
-      $descripcion = $reg->descripcion_producto;
+      $descripcion = $reg->producto;
+      $pack = $reg->producto;
       $imagen =  $reg->imagen_producto;
    }
 
    $data[] = array(
-      'iddp' =>$reg->iddetalle_pedido,
+      'iddp' =>($cont+1),
       'descripcion' =>strip_tags($descripcion),
       'cantidad' =>$reg->cantidad,
       'articulo' =>$imagen,      
       'precio' =>number_format($reg->precio, 2, '.', ','),
       'subtotal' =>number_format(($reg->cantidad*$reg->precio) , 2, '.', ',')              
     ); 
+    $cont++;
 }
 
 // var_dump($data);
@@ -85,7 +90,7 @@ $pdf->MultiCell(85 ,5,utf8_decode('Sres.'),0,'L',false,0);
 $pdf->SetXY($x, $y+25);
 $pdf->MultiCell(85 ,5,utf8_decode($rsptap['nombre_empresa']),0,'L',false,0);
 $pdf->SetXY($x, $y+30);
-$pdf->MultiCell(85 ,5,utf8_decode('Atención: George Paredo.'),0,'L',false,0);
+$pdf->MultiCell(85 ,5,utf8_decode('Atención: '.$rsptap['nombre_representante']),0,'L',false,0);
 $pdf->SetXY($x, $y+35);
 $pdf->MultiCell(85 ,5,utf8_decode('Fecha: '.$fecha),0,'L',false,0);
 
@@ -100,7 +105,7 @@ $pdf->SetTextColor(18,45,73);
 $pdf->MultiCell(170 ,5,utf8_decode('Descripción del proyecto:'),0,'L',false,0);
 $pdf->SetTextColor(0,0,0);
 $pdf->SetXY($x, $y+75);
-$pdf->MultiCell(170 ,5,utf8_decode('Adquisición de sistemas de seguridad retail RF para 1 tienda con acceso de 2m'),0,'L',false,0);
+$pdf->MultiCell(170 ,5,utf8_decode('Adquisición de: '.$pack),0,'L',false,0);
 
 $pdf->Ln(5);
 
@@ -176,11 +181,12 @@ $tableB->easyCell("", 'colspan:1; border:L;');
 $tableB->easyCell( iconv("UTF-8", "CP1252", '•') . utf8_decode(" CUENTA BCP DOLARES: \n").'- 191-2489065-1-79', 'border:0; colspan:3; valign:M; align:L; font-style:B');
 $tableB->printRow(); //FILA 6
 /** ********************************************************************************************************* */
-$tableB->easyCell("", 'colspan:1; border:L;');
-$tableB->easyCell(
-   iconv("UTF-8", "CP1252", '•') . utf8_decode(" Tipo de cambio:"), 'border:0; colspan:2; valign:M; align:L; font-style:B');
-$tableB->easyCell(utf8_decode(" S/ 3.38"), 'border:0; colspan:1; valign:M; align:L; ');
-$tableB->printRow(); //FILA 7
+// $tableB->easyCell("", 'colspan:1; border:L;');
+// $tableB->easyCell(
+//    iconv("UTF-8", "CP1252", '•') . utf8_decode(" Tipo de cambio:"), 'border:0; colspan:2; valign:M; align:L; font-style:B');
+// $tableB->easyCell(utf8_decode(" S/ 3.38"), 'border:0; colspan:1; valign:M; align:L; ');
+$tableB->printRow();
+ //FILA 7
 /** ********************************************************************************************************* */
 $tableB->easyCell("", 'colspan:1; border:LB;');
 $tableB->easyCell( iconv("UTF-8", "CP1252", '•') . utf8_decode(" CUENTA BCP SOLES: \n").'- 191-2498559-0-67', 'border:B; colspan:3; valign:M; align:L; font-style:B');
@@ -210,7 +216,7 @@ $tableB->printRow(); //FILAS 4
 /** ********************************************************************************************************* */
 $tableB->easyCell("", 'colspan:1; border:0;');
 $tableB->easyCell(iconv("UTF-8", "CP1252", '•') . utf8_decode(" El cliente debe entregarun canalizado (entubado) según la longitud que deba haber entre las
-antenas (170 cm etiquetas duras grandes)."), 'colspan:1; border:0; font-size:11;');
+antenas."), 'colspan:1; border:0; font-size:11;');
 $tableB->printRow(); //FILAS 5
 /** ********************************************************************************************************* */
 $tableB->easyCell("", 'colspan:1; border:0;');
@@ -243,7 +249,7 @@ $pdf ->ln(5);
 $tableB->easyCell(utf8_decode("Cordialmente,"), 'colspan:2; border:0; font-size:11;');
 $tableB->printRow(); //FILAS 12
 $pdf ->ln(5);
-$tableB->easyCell(utf8_decode("Antonio Navarro \n
+$tableB->easyCell(utf8_decode("Dario Navarro \n
 Soporte Comercial"), 'colspan:2; border:0; font-size:11; font-style:B; line-height:0.5;');
 $tableB->printRow(); //FILAS 13
 /** ********************************************************************************************************* */
